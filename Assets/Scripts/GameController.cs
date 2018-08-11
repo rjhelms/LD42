@@ -23,6 +23,7 @@ public class GameController : MonoBehaviour
     [Header("Phase Barrier Attributes")]
     public GameObject PhaseBarrierPrefab;
     public List<GameObject> PhaseBarrierList;
+    public List<GameObject> ActiveEmitterList;
     public float PhaseBarrierTime;
     private float nextPhaseBarrierTime;
 
@@ -86,46 +87,75 @@ public class GameController : MonoBehaviour
     {
         bool spawnedBarrier = false;
 
-        while (!spawnedBarrier)
+        foreach (GameObject emitter in ActiveEmitterList)
         {
-            if (PhaseBarrierList.Count == 0) break;
-            GameObject randomBarrier = PhaseBarrierList[Random.Range(0, PhaseBarrierList.Count)];
-            int direction = Random.Range(0, 4);
-            Vector2 newPosition = randomBarrier.transform.position;
-            switch (direction)
+            while (!spawnedBarrier)
             {
-                case 0:
-                    newPosition += new Vector2(GridX, 0);
-                    break;
-                case 1:
-                    newPosition -= new Vector2(GridX, 0);
-                    break;
-                case 2:
-                    newPosition += new Vector2(0, GridY);
-                    break;
-                case 3:
-                    newPosition -= new Vector2(0, GridY);
-                    break;
-            }
-            bool goodPosition = true;
-            foreach (GameObject barrier in PhaseBarrierList)
-            {
-                if ((Vector2)barrier.transform.position == newPosition)
+                List<GameObject> emitterBarriers = new List<GameObject>();
+                foreach (GameObject barrier in PhaseBarrierList)
                 {
-                    goodPosition = false;
-                    break;
+                    Debug.Log(barrier);
+                    if (barrier.GetComponent<PhaseBarrier>().ParentEmitter == emitter)
+                    {
+                        emitterBarriers.Add(barrier);
+                    }
+                }
+                Vector2 newPosition = new Vector2();
+                bool goodPosition = true;
+                if (emitterBarriers.Count == 0)
+                {
+                    newPosition = emitter.transform.position;
+                }
+                else
+                {
+
+                    GameObject randomBarrier = emitterBarriers[Random.Range(0, PhaseBarrierList.Count)];
+                    int direction = Random.Range(0, 4);
+                    newPosition = randomBarrier.transform.position;
+                    switch (direction)
+                    {
+                        case 0:
+                            newPosition += new Vector2(GridX, 0);
+                            break;
+                        case 1:
+                            newPosition -= new Vector2(GridX, 0);
+                            break;
+                        case 2:
+                            newPosition += new Vector2(0, GridY);
+                            break;
+                        case 3:
+                            newPosition -= new Vector2(0, GridY);
+                            break;
+                    }
+                }
+                foreach (GameObject barrier in PhaseBarrierList)
+                {
+                    if ((Vector2)barrier.transform.position == newPosition)
+                    {
+                        goodPosition = false;
+                        break;
+                    }
+                }
+                if (goodPosition)
+                {
+                    GameObject newBarrier = Instantiate(PhaseBarrierPrefab, newPosition, Quaternion.identity);
+                    PhaseBarrierList.Add(newBarrier);
+                    newBarrier.GetComponent<PhaseBarrier>().ParentEmitter = emitter;
+                    spawnedBarrier = true;
+                }
+                else
+                {
+                    yield return null;
                 }
             }
-            if (goodPosition)
-            {
-                GameObject newBarrier = Instantiate(PhaseBarrierPrefab, newPosition, Quaternion.identity);
-                PhaseBarrierList.Add(newBarrier);
-                spawnedBarrier = true;
-            }
-            else
-            {
-                yield return null;
-            }
+        }
+    }
+
+    public void RegisterEmitter(GameObject emitter)
+    {
+        if (!ActiveEmitterList.Contains(emitter))
+        {
+            ActiveEmitterList.Add(emitter);
         }
     }
 }

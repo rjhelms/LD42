@@ -15,6 +15,7 @@ public class PhaseBarrier : MonoBehaviour {
     public float InTime;
     public float OutTime;
     public float FlashTime;
+    public GameObject ParentEmitter;
 
     private float nextStateChangeTime;
     private float nextFlashTime;
