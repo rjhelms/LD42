@@ -221,10 +221,10 @@ MonoBehaviour:
   - {fileID: 21300012, guid: d7f77add5df64494c813a02e42feed88, type: 3}
   - {fileID: 21300014, guid: d7f77add5df64494c813a02e42feed88, type: 3}
   AnimSpritesU:
-  - {fileID: 21300000, guid: d7f77add5df64494c813a02e42feed88, type: 3}
-  - {fileID: 21300002, guid: d7f77add5df64494c813a02e42feed88, type: 3}
-  - {fileID: 21300004, guid: d7f77add5df64494c813a02e42feed88, type: 3}
-  - {fileID: 21300006, guid: d7f77add5df64494c813a02e42feed88, type: 3}
+  - {fileID: 21300016, guid: d7f77add5df64494c813a02e42feed88, type: 3}
+  - {fileID: 21300018, guid: d7f77add5df64494c813a02e42feed88, type: 3}
+  - {fileID: 21300020, guid: d7f77add5df64494c813a02e42feed88, type: 3}
+  - {fileID: 21300022, guid: d7f77add5df64494c813a02e42feed88, type: 3}
   LastMoveVector: {x: 0, y: 0}
   ProjectileSpawnPoints:
   - {fileID: 4670785023992666}
