@@ -211,4 +211,12 @@ public class Player : MonoBehaviour
             projectile.GetComponent<PlayerProjectile>().MoveVector = moveVectors[i];
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Emitter")
+        {
+            collision.gameObject.GetComponent<Emitter>().Deactivate();
+        }
+    }
 }

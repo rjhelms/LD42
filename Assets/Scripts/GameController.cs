@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour
     public GameObject PhaseBarrierPrefab;
     public List<GameObject> PhaseBarrierList;
     public List<GameObject> ActiveEmitterList;
+    public List<GameObject> InactiveEmitterList;
     public float PhaseBarrierTime;
     private float nextPhaseBarrierTime;
 
@@ -86,10 +87,10 @@ public class GameController : MonoBehaviour
     IEnumerator CreatePhaseBarrier()
     {
         bool spawnedBarrier = false;
-
-        foreach (GameObject emitter in ActiveEmitterList)
+        List<GameObject> tempEmitterList = new List<GameObject>(ActiveEmitterList);
+        foreach (GameObject emitter in tempEmitterList)
         {
-            while (!spawnedBarrier)
+            while (emitter.GetComponent<Emitter>().Active & !spawnedBarrier)
             {
                 List<GameObject> emitterBarriers = new List<GameObject>();
                 foreach (GameObject barrier in PhaseBarrierList)
@@ -108,8 +109,7 @@ public class GameController : MonoBehaviour
                 }
                 else
                 {
-
-                    GameObject randomBarrier = emitterBarriers[Random.Range(0, PhaseBarrierList.Count)];
+                    GameObject randomBarrier = emitterBarriers[Random.Range(0, emitterBarriers.Count)];
                     int direction = Random.Range(0, 4);
                     newPosition = randomBarrier.transform.position;
                     switch (direction)
