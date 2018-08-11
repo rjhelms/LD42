@@ -86,16 +86,16 @@ public class GameController : MonoBehaviour
 
     IEnumerator CreatePhaseBarrier()
     {
-        bool spawnedBarrier = false;
         List<GameObject> tempEmitterList = new List<GameObject>(ActiveEmitterList);
+        Debug.Log(tempEmitterList.Count);
         foreach (GameObject emitter in tempEmitterList)
         {
+            bool spawnedBarrier = false;
             while (emitter.GetComponent<Emitter>().Active & !spawnedBarrier)
             {
                 List<GameObject> emitterBarriers = new List<GameObject>();
                 foreach (GameObject barrier in PhaseBarrierList)
                 {
-                    Debug.Log(barrier);
                     if (barrier.GetComponent<PhaseBarrier>().ParentEmitter == emitter)
                     {
                         emitterBarriers.Add(barrier);
