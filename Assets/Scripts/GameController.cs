@@ -99,7 +99,7 @@ public class GameController : MonoBehaviour
                 bool goodPosition = true;
                 if (emitterBarriers.Count == 0)
                 {
-                    newPosition = emitter.transform.position;
+                    newPosition = emitter.transform.position + new Vector3(0, GridY, 0);
                 }
                 else
                 {
