@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
     public List<GameObject> InactiveEmitterList;
     public float PhaseBarrierSpawnTime = 0.75f;
     public float PhaseBarrierDeactivateTime = 1.5f;
+    public float RandomSpawnChance = 0.5f;
     private float nextPhaseBarrierSpawnTime;
     private float nextPhaseBarrierDeactivateTime;
     // Use this for initialization
@@ -81,7 +82,9 @@ public class GameController : MonoBehaviour
         List<GameObject> tempEmitterList = new List<GameObject>(ActiveEmitterList);
         foreach (GameObject emitter in tempEmitterList)
         {
-            bool spawnedBarrier = false;
+            bool spawnedBarrier = true;
+            if (Random.value < RandomSpawnChance)
+                spawnedBarrier = false;
             while (emitter.GetComponent<Emitter>().Active & !spawnedBarrier)
             {
                 List<GameObject> emitterBarriers = new List<GameObject>();
