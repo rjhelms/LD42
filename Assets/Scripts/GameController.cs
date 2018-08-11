@@ -50,6 +50,10 @@ public class GameController : MonoBehaviour
         nextBarrierDamageTime = Time.time + BarrierDamageTime;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         gameGrid = FindObjectOfType<Grid>().transform;
+        Vector3 cameraTargetPosition = (player.transform.position + CameraPositionOffset
+                                + ((Vector3)player.LastMoveVector * PlayerVectorMultiplier));
+        WorldCamera.transform.position = new Vector3(Mathf.RoundToInt(cameraTargetPosition.x), Mathf.Round(cameraTargetPosition.y),
+                                             Mathf.Round(cameraTargetPosition.y - 150));
     }
 
     // Update is called once per frame
