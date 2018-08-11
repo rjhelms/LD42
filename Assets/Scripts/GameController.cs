@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     public float CameraLerpSpeed = 0.1f;
     public Vector3 CameraPositionOffset = new Vector3(10, 12, 0);
     public int PlayerVectorMultiplier = 20;
+    public Transform gameGrid;
     private Player player;
 
     [Header("Phase Barrier Attributes")]
@@ -37,6 +38,7 @@ public class GameController : MonoBehaviour
         nextPhaseBarrierSpawnTime = Time.time + PhaseBarrierSpawnTime;
         nextPhaseBarrierDeactivateTime = Time.time + PhaseBarrierDeactivateTime;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        gameGrid = FindObjectOfType<Grid>().transform;
     }
 
     // Update is called once per frame
@@ -57,6 +59,7 @@ public class GameController : MonoBehaviour
         Vector3 newCameraPosition = Vector3.Lerp(WorldCamera.transform.position, cameraTargetPosition, CameraLerpSpeed);
         WorldCamera.transform.position = new Vector3(Mathf.RoundToInt(newCameraPosition.x), Mathf.Round(newCameraPosition.y),
                                                      Mathf.Round(newCameraPosition.y - 150));
+        gameGrid.position = new Vector3(gameGrid.position.x, gameGrid.position.y, player.transform.position.z);
     }
 
     private void InitializeCamera()
