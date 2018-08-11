@@ -16,12 +16,15 @@ public class Player : MonoBehaviour
 
     public float nextAnimFrame;
     private SpriteRenderer spriteRenderer;
+    new private Rigidbody2D rigidbody2D;
+
     // Use this for initialization
     void Start()
     {
         nextAnimFrame = Time.fixedTime + nextAnimFrame;
         lastMoveVector = new Vector2(1, 0);
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -29,6 +32,7 @@ public class Player : MonoBehaviour
         spriteRenderer.sprite = animSprites[currentAnimFrame];
         if (lastMoveVector.x < 0) spriteRenderer.transform.localScale = new Vector3(-1, 1, 1);
         if (lastMoveVector.x > 0) spriteRenderer.transform.localScale = new Vector3(1, 1, 1);
+        transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), transform.position.z);
     }
 
     void FixedUpdate()
@@ -53,7 +57,8 @@ public class Player : MonoBehaviour
             moveVector += new Vector2(0, -1);
         }
 
-        transform.position += (Vector3)moveVector * moveSpeed;
+        Vector2 newPosition = (Vector2)transform.position + (moveVector * moveSpeed);
+        rigidbody2D.MovePosition(newPosition);
 
         if (moveVector.magnitude > 0)
         {
