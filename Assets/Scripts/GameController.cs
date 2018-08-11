@@ -189,4 +189,13 @@ public class GameController : MonoBehaviour
             ActiveEmitterList.Add(emitter);
         }
     }
+
+    public void DeactivateEmitter(GameObject emitter)
+    {
+        if (ActiveEmitterList.Contains(emitter))
+            ActiveEmitterList.Remove(emitter);
+        if (!InactiveEmitterList.Contains(emitter))
+            InactiveEmitterList.Add(emitter);
+        Debug.Log(string.Format("{0} active emitters left", ActiveEmitterList.Count));
+    }
 }

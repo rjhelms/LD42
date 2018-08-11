@@ -25,9 +25,11 @@ public class Emitter : MonoBehaviour {
 
     public void Deactivate()
     {
-        Active = false;
-        spriteRenderer.sprite = InactiveSprite;
-        controller.ActiveEmitterList.Remove(gameObject);
-        controller.InactiveEmitterList.Add(gameObject);
+        if (Active)
+        {
+            Active = false;
+            spriteRenderer.sprite = InactiveSprite;
+            controller.DeactivateEmitter(gameObject);
+        }
     }
 }
