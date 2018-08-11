@@ -111,7 +111,6 @@ public class GameController : MonoBehaviour
                 if ((Vector2)barrier.transform.position == newPosition)
                 {
                     goodPosition = false;
-                    Debug.Log("Invalid position at " + newPosition);
                     break;
                 }
             }
@@ -123,7 +122,6 @@ public class GameController : MonoBehaviour
             }
             else
             {
-                Debug.Log("Yielding");
                 yield return null;
             }
         }
