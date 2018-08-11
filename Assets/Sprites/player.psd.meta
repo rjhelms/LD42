@@ -3,6 +3,9 @@ guid: d7f77add5df64494c813a02e42feed88
 TextureImporter:
   fileIDToRecycleName:
     21300000: player_0
+    21300002: player_1
+    21300004: player_2
+    21300006: player_3
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -100,17 +103,77 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 150
+        y: 0
         width: 20
         height: 50
-      alignment: 6
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4005f34946780734b85dbe376ec1d2be
+      spriteID: a984927bb88fcb44fbd9ebadb8f821e6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_1
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 0
+        width: 20
+        height: 50
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74d22c8ffe911e945b64594d1c710052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_2
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 0
+        width: 20
+        height: 50
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c68ae51cb4c6c74187b8a7ad4dde7f4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_3
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 0
+        width: 20
+        height: 50
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df81e415ea6a73242bb6a4835a56cbc2
       vertices: []
       indices: 
       edges: []
