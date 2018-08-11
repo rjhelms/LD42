@@ -8,3 +8,7 @@ DESIGN:
 - universe collapsing - random tiles turn into "collapsed" state (ie overlayed with impassable tile)
 	- choose an existing collapsed tile at random, and add a new one off one cardinal direction from there
 	- if it's occupied, try again - hopefully this doesn't hose performace (a coroutine perhaps?)
+
+TODO:
+- up / views
+- relative projectile firing - in 8 directions

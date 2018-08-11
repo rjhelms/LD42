@@ -1,18 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
+public enum Facing
+{
+    LEFT = 0,
+    RIGHT = 1,
+}
 
 public class Player : MonoBehaviour
 {
 
-    public float moveSpeed;
-    public int currentAnimFrame = 0;
-    public int maxAnimFrame = 2;
-    public float animTime = 0.05f;
+    public float MoveSpeed;
+    public int CurrentAnimFrame = 0;
+    public int MaxAnimFrame = 2;
+    public float AnimTime = 0.05f;
+    public Facing Facing = Facing.RIGHT;
+    public Sprite[] AnimSprites;
 
-    public Sprite[] animSprites;
+    public Vector2 LastMoveVector;
 
-    public Vector2 lastMoveVector;
+    public Transform[] ProjectileSpawnPoints;
+    public GameObject ProjectilePrefab;
 
     public float nextAnimFrame;
     private SpriteRenderer spriteRenderer;
@@ -22,17 +29,43 @@ public class Player : MonoBehaviour
     void Start()
     {
         nextAnimFrame = Time.fixedTime + nextAnimFrame;
-        lastMoveVector = new Vector2(1, 0);
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        spriteRenderer.sprite = animSprites[currentAnimFrame];
-        if (lastMoveVector.x < 0) spriteRenderer.transform.localScale = new Vector3(-1, 1, 1);
-        if (lastMoveVector.x > 0) spriteRenderer.transform.localScale = new Vector3(1, 1, 1);
+        spriteRenderer.sprite = AnimSprites[CurrentAnimFrame];
+        if (LastMoveVector.x < 0)
+        {
+            Facing = Facing.LEFT;
+            spriteRenderer.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        if (LastMoveVector.x > 0)
+        {
+            Facing = Facing.RIGHT;
+            spriteRenderer.transform.localScale = new Vector3(1, 1, 1);
+        }
         transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), transform.position.z);
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            GameObject projectile;
+            int direction = 1;
+            if (Facing == Facing.LEFT)
+            {
+                direction = -1;
+            }
+            projectile = GameObject.Instantiate(ProjectilePrefab, ProjectileSpawnPoints[(int)Facing].position, Quaternion.identity);
+            projectile.GetComponent<PlayerProjectile>().MoveVector = new Vector2(direction, -1);
+            projectile.transform.localScale = new Vector3(direction, 1, 1);
+            projectile = GameObject.Instantiate(ProjectilePrefab, ProjectileSpawnPoints[(int)Facing].position, Quaternion.identity);
+            projectile.GetComponent<PlayerProjectile>().MoveVector = new Vector2(direction, 0);
+            projectile.transform.localScale = new Vector3(direction, 1, 1);
+            projectile = GameObject.Instantiate(ProjectilePrefab, ProjectileSpawnPoints[(int)Facing].position, Quaternion.identity);
+            projectile.GetComponent<PlayerProjectile>().MoveVector = new Vector2(direction, 1);
+            projectile.transform.localScale = new Vector3(direction, 1, 1);
+        }
     }
 
     void FixedUpdate()
@@ -57,19 +90,19 @@ public class Player : MonoBehaviour
             moveVector += new Vector2(0, -1);
         }
 
-        Vector2 newPosition = (Vector2)transform.position + (moveVector * moveSpeed);
+        Vector2 newPosition = (Vector2)transform.position + (moveVector * MoveSpeed);
         rigidbody2D.MovePosition(newPosition);
 
         if (moveVector.magnitude > 0)
         {
-            lastMoveVector = moveVector;
+            LastMoveVector = moveVector;
             if (Time.fixedTime >= nextAnimFrame)
             {
-                currentAnimFrame++;
-                nextAnimFrame = Time.fixedTime + animTime;
-                if (currentAnimFrame == maxAnimFrame)
+                CurrentAnimFrame++;
+                nextAnimFrame = Time.fixedTime + AnimTime;
+                if (CurrentAnimFrame == MaxAnimFrame)
                 {
-                    currentAnimFrame = 0;
+                    CurrentAnimFrame = 0;
                 }
             }
         }

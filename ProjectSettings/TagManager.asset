@@ -15,10 +15,10 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Terrain
+  - PhaseBarrier
+  - Projectile
   - 
   - 
   - 
