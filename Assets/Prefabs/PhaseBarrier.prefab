@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   State: 0
   InTime: 1
-  OutTime: 0
+  OutTime: 2
   FlashTime: 0.2
 --- !u!212 &212818334535162488
 SpriteRenderer:

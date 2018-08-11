@@ -35,8 +35,7 @@ public class PlayerProjectile : MonoBehaviour {
     {
         if (collision.gameObject.tag == "PhaseBarrier")
         {
-            Destroy(collision.gameObject);
-            controller.PhaseBarrierList.Remove(collision.gameObject);
+            collision.gameObject.GetComponent<PhaseBarrier>().Die();
             Destroy(gameObject);
         }
     }
