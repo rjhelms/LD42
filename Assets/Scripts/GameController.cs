@@ -85,8 +85,10 @@ public class GameController : MonoBehaviour
     IEnumerator CreatePhaseBarrier()
     {
         bool spawnedBarrier = false;
+
         while (!spawnedBarrier)
         {
+            if (PhaseBarrierList.Count == 0) break;
             GameObject randomBarrier = PhaseBarrierList[Random.Range(0, PhaseBarrierList.Count)];
             int direction = Random.Range(0, 4);
             Vector2 newPosition = randomBarrier.transform.position;
@@ -116,7 +118,7 @@ public class GameController : MonoBehaviour
             }
             if (goodPosition)
             {
-                GameObject newBarrier = GameObject.Instantiate(PhaseBarrierPrefab, newPosition, Quaternion.identity);
+                GameObject newBarrier = Instantiate(PhaseBarrierPrefab, newPosition, Quaternion.identity);
                 PhaseBarrierList.Add(newBarrier);
                 spawnedBarrier = true;
             }
