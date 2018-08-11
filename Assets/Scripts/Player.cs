@@ -18,8 +18,6 @@ public class Player : MonoBehaviour {
         float moveHoriz = Input.GetAxis("Horizontal");
         float moveVert = Input.GetAxis("Vertical");
         float moveRotate = Input.GetAxis("Rotate");
-        Debug.Log("Horiz: " + moveHoriz);
-        Debug.Log("Vert: " + moveVert);
         transform.Rotate(0, moveRotate * rotateSpeed * Time.deltaTime, 0);
         Vector3 moveVector = transform.TransformDirection(moveHoriz, 0, moveVert);
         controller.Move(moveVector * moveSpeed * Time.deltaTime);
