@@ -12,6 +12,6 @@ public class FacePlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.LookAt(player);
+        transform.rotation = player.rotation;
 	}
 }
