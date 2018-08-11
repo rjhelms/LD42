@@ -55,7 +55,7 @@ public class GameController : MonoBehaviour
                                         + ((Vector3)player.LastMoveVector * PlayerVectorMultiplier));
         Vector3 newCameraPosition = Vector3.Lerp(WorldCamera.transform.position, cameraTargetPosition, CameraLerpSpeed);
         WorldCamera.transform.position = new Vector3(Mathf.RoundToInt(newCameraPosition.x), Mathf.Round(newCameraPosition.y),
-                                                     WorldCamera.transform.position.z);
+                                                     Mathf.Round(newCameraPosition.y - 150));
     }
 
     private void InitializeCamera()

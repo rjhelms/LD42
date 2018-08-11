@@ -9,12 +9,13 @@ public class Emitter : MonoBehaviour {
     public Sprite InactiveSprite;
     private GameController controller;
     private SpriteRenderer spriteRenderer;
+
 	// Use this for initialization
 	void Start () {
         spriteRenderer = GetComponent<SpriteRenderer>();
         controller = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         controller.RegisterEmitter(gameObject);
-        
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y);
     }
 	
 	// Update is called once per frame

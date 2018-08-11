@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
             spriteRenderer.sprite = AnimSpritesD[CurrentAnimFrame];
         }
 
-        transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), transform.position.z);
+        transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), Mathf.RoundToInt(transform.position.y));
 
         if (Input.GetButtonDown("Fire1"))
         {
