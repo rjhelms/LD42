@@ -26,17 +26,28 @@ public class GameController : MonoBehaviour
     public List<GameObject> PhaseBarrierList;
     public List<GameObject> ActiveEmitterList;
     public List<GameObject> InactiveEmitterList;
+    private float nextPhaseBarrierSpawnTime;
+    private float nextPhaseBarrierDeactivateTime;
+
+    [Header("Game Balance")]
     public float PhaseBarrierSpawnTime = 0.75f;
     public float PhaseBarrierDeactivateTime = 1.5f;
     public float RandomSpawnChance = 0.5f;
-    private float nextPhaseBarrierSpawnTime;
-    private float nextPhaseBarrierDeactivateTime;
+    public int BarrierDamageAmount = 5;
+    public float BarrierDamageTime = 0.5f;
+    private float nextBarrierDamageTime;
+
+    [Header("UI Elements")]
+    public Transform HealthBar;
+    public int HealthBarWidth = 24;
+
     // Use this for initialization
     void Start()
     {
         InitializeCamera();
         nextPhaseBarrierSpawnTime = Time.time + PhaseBarrierSpawnTime;
         nextPhaseBarrierDeactivateTime = Time.time + PhaseBarrierDeactivateTime;
+        nextBarrierDamageTime = Time.time + BarrierDamageTime;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         gameGrid = FindObjectOfType<Grid>().transform;
     }
@@ -60,6 +71,9 @@ public class GameController : MonoBehaviour
         WorldCamera.transform.position = new Vector3(Mathf.RoundToInt(newCameraPosition.x), Mathf.Round(newCameraPosition.y),
                                                      Mathf.Round(newCameraPosition.y - 150));
         gameGrid.position = new Vector3(gameGrid.position.x, gameGrid.position.y, player.transform.position.z);
+
+        int currentHealthBarWidth = Mathf.CeilToInt(ScoreManager.Instance.HitPoints * HealthBarWidth / ScoreManager.Instance.MaxHitPoints);
+        HealthBar.localScale = new Vector3(currentHealthBarWidth, 1, 1);
     }
 
     private void InitializeCamera()
@@ -200,5 +214,15 @@ public class GameController : MonoBehaviour
         if (!InactiveEmitterList.Contains(emitter))
             InactiveEmitterList.Add(emitter);
         Debug.Log(string.Format("{0} active emitters left", ActiveEmitterList.Count));
+    }
+
+    public void CheckHit()
+    {
+        if (Time.time > nextBarrierDamageTime)
+        {
+            ScoreManager.Instance.HitPoints -= BarrierDamageAmount;
+            nextBarrierDamageTime = Time.time + BarrierDamageTime;
+            Debug.Log("Ouch! " + ScoreManager.Instance.HitPoints);
+        }
     }
 }

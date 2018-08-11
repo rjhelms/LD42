@@ -25,8 +25,11 @@ public class Player : MonoBehaviour
     public Transform[] ProjectileSpawnPoints;
     public GameObject ProjectilePrefab;
 
+    public int CurrentBarrierCollisions;
+
     public float nextAnimFrame;
     private SpriteRenderer spriteRenderer;
+    private GameController controller;
     new private Rigidbody2D rigidbody2D;
 
     // Use this for initialization
@@ -35,11 +38,45 @@ public class Player : MonoBehaviour
         nextAnimFrame = Time.fixedTime + nextAnimFrame;
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         rigidbody2D = GetComponent<Rigidbody2D>();
+        controller = FindObjectOfType<GameController>();
     }
 
     private void Update()
     {
+        UpdateFacing();
+        SetSprite();
 
+        transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), Mathf.RoundToInt(transform.position.y));
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            SpawnProjectiles();
+        }
+
+        if (CurrentBarrierCollisions > 0)
+        {
+            controller.CheckHit();
+        }
+    }
+
+    private void SetSprite()
+    {
+        if (Facing == Facing.LEFT | Facing == Facing.RIGHT)
+        {
+            spriteRenderer.sprite = AnimSpritesLR[CurrentAnimFrame];
+        }
+        else if (Facing == Facing.UP)
+        {
+            spriteRenderer.sprite = AnimSpritesU[CurrentAnimFrame];
+        }
+        else if (Facing == Facing.DOWN)
+        {
+            spriteRenderer.sprite = AnimSpritesD[CurrentAnimFrame];
+        }
+    }
+
+    private void UpdateFacing()
+    {
         if (LastMoveVector.x < 0)
         {
             Facing = Facing.LEFT;
@@ -59,25 +96,6 @@ public class Player : MonoBehaviour
             }
             else if (LastMoveVector.y < 0)
                 Facing = Facing.DOWN;
-        }
-        if (Facing == Facing.LEFT | Facing == Facing.RIGHT)
-        {
-            spriteRenderer.sprite = AnimSpritesLR[CurrentAnimFrame];
-        }
-        else if (Facing == Facing.UP)
-        {
-            spriteRenderer.sprite = AnimSpritesU[CurrentAnimFrame];
-        }
-        else if (Facing == Facing.DOWN)
-        {
-            spriteRenderer.sprite = AnimSpritesD[CurrentAnimFrame];
-        }
-
-        transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), Mathf.RoundToInt(transform.position.y));
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            SpawnProjectiles();
         }
     }
 
@@ -217,6 +235,22 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Emitter")
         {
             collision.gameObject.GetComponent<Emitter>().Deactivate();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "PhaseBarrier")
+        {
+            CurrentBarrierCollisions++;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "PhaseBarrier")
+        {
+            CurrentBarrierCollisions--;
         }
     }
 }
