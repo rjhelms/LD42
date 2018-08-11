@@ -16,5 +16,4 @@ DESIGN:
 - also have a "phase cannon" that temporarily restores - but it recharges slowly
 
 TODO:
-- up / down views
-- relative projectile firing - in 8 directions
+- occasionally still crashing with null GameObject in RemovePhaseBarrier

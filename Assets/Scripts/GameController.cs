@@ -72,7 +72,7 @@ public class GameController : MonoBehaviour
                                                      Mathf.Round(newCameraPosition.y - 150));
         gameGrid.position = new Vector3(gameGrid.position.x, gameGrid.position.y, player.transform.position.z);
 
-        int currentHealthBarWidth = Mathf.CeilToInt(ScoreManager.Instance.HitPoints * HealthBarWidth / ScoreManager.Instance.MaxHitPoints);
+        int currentHealthBarWidth = Mathf.RoundToInt(ScoreManager.Instance.HitPoints * HealthBarWidth / ScoreManager.Instance.MaxHitPoints);
         HealthBar.localScale = new Vector3(currentHealthBarWidth, 1, 1);
     }
 

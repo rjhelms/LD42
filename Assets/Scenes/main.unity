@@ -158,7 +158,7 @@ MonoBehaviour:
   PhaseBarrierSpawnTime: 0.5
   PhaseBarrierDeactivateTime: 1.5
   RandomSpawnChance: 0.5
-  BarrierDamageAmount: 5
+  BarrierDamageAmount: 1
   BarrierDamageTime: 0.5
   HealthBar: {fileID: 1739943811}
   HealthBarWidth: 24
