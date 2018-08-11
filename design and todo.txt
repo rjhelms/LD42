@@ -1,0 +1,8 @@
+DESIGN:
+- player is on a space station / moon base / something like that
+- universe is collapsing!!!
+
+
+TODO:
+- top and bottom planes
+- figure out lighting/fog
