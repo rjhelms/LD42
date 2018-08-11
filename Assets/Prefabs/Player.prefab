@@ -11,6 +11,21 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1759399367718682}
   m_IsPrefabAsset: 1
+--- !u!1 &1110444994523462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4085679563790586}
+  m_Layer: 9
+  m_Name: RightProjectileSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1326872937256028
 GameObject:
   m_ObjectHideFlags: 0
@@ -20,7 +35,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4222894388618912}
   m_Layer: 9
-  m_Name: RightProjectileSpawn
+  m_Name: UpDownProjectileSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,18 +90,31 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4222894388618912
+--- !u!4 &4085679563790586
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1326872937256028}
+  m_GameObject: {fileID: 1110444994523462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 14, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4344406038438750}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4222894388618912
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1326872937256028}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10, y: 20, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4344406038438750}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4344406038438750
 Transform:
@@ -99,8 +127,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4814079724880312}
-  - {fileID: 4222894388618912}
+  - {fileID: 4085679563790586}
   - {fileID: 4670785023992666}
+  - {fileID: 4222894388618912}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -181,7 +210,17 @@ MonoBehaviour:
   MaxAnimFrame: 4
   AnimTime: 0.15
   Facing: 1
-  AnimSprites:
+  AnimSpritesLR:
+  - {fileID: 21300000, guid: d7f77add5df64494c813a02e42feed88, type: 3}
+  - {fileID: 21300002, guid: d7f77add5df64494c813a02e42feed88, type: 3}
+  - {fileID: 21300004, guid: d7f77add5df64494c813a02e42feed88, type: 3}
+  - {fileID: 21300006, guid: d7f77add5df64494c813a02e42feed88, type: 3}
+  AnimSpritesD:
+  - {fileID: 21300008, guid: d7f77add5df64494c813a02e42feed88, type: 3}
+  - {fileID: 21300010, guid: d7f77add5df64494c813a02e42feed88, type: 3}
+  - {fileID: 21300012, guid: d7f77add5df64494c813a02e42feed88, type: 3}
+  - {fileID: 21300014, guid: d7f77add5df64494c813a02e42feed88, type: 3}
+  AnimSpritesU:
   - {fileID: 21300000, guid: d7f77add5df64494c813a02e42feed88, type: 3}
   - {fileID: 21300002, guid: d7f77add5df64494c813a02e42feed88, type: 3}
   - {fileID: 21300004, guid: d7f77add5df64494c813a02e42feed88, type: 3}
@@ -189,6 +228,8 @@ MonoBehaviour:
   LastMoveVector: {x: 0, y: 0}
   ProjectileSpawnPoints:
   - {fileID: 4670785023992666}
+  - {fileID: 4085679563790586}
+  - {fileID: 4222894388618912}
   - {fileID: 4222894388618912}
   ProjectilePrefab: {fileID: 1502353074643656, guid: bf10d970715492b499de0c825348e8cc,
     type: 2}

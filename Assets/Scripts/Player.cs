@@ -4,6 +4,8 @@ public enum Facing
 {
     LEFT = 0,
     RIGHT = 1,
+    UP = 2,
+    DOWN = 3,
 }
 
 public class Player : MonoBehaviour
@@ -14,7 +16,9 @@ public class Player : MonoBehaviour
     public int MaxAnimFrame = 2;
     public float AnimTime = 0.05f;
     public Facing Facing = Facing.RIGHT;
-    public Sprite[] AnimSprites;
+    public Sprite[] AnimSpritesLR;
+    public Sprite[] AnimSpritesD;
+    public Sprite[] AnimSpritesU;
 
     public Vector2 LastMoveVector;
 
@@ -35,17 +39,38 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        spriteRenderer.sprite = AnimSprites[CurrentAnimFrame];
+        
         if (LastMoveVector.x < 0)
         {
             Facing = Facing.LEFT;
             spriteRenderer.transform.localScale = new Vector3(-1, 1, 1);
         }
-        if (LastMoveVector.x > 0)
+        else if (LastMoveVector.x > 0)
         {
             Facing = Facing.RIGHT;
             spriteRenderer.transform.localScale = new Vector3(1, 1, 1);
         }
+        else
+        {
+            spriteRenderer.transform.localScale = new Vector3(1, 1, 1);
+            if (LastMoveVector.y > 0)
+            {
+                Facing = Facing.UP;
+            }
+            else if (LastMoveVector.y < 0)
+                Facing = Facing.DOWN;
+        }
+        if (Facing == Facing.LEFT | Facing == Facing.RIGHT)
+        {
+            spriteRenderer.sprite = AnimSpritesLR[CurrentAnimFrame];
+        } else if (Facing == Facing.UP)
+        {
+            spriteRenderer.sprite = AnimSpritesU[CurrentAnimFrame];
+        } else if (Facing == Facing.DOWN)
+        {
+            spriteRenderer.sprite = AnimSpritesD[CurrentAnimFrame];
+        }
+
         transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), transform.position.z);
 
         if (Input.GetButtonDown("Fire1"))
