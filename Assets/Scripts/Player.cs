@@ -75,21 +75,93 @@ public class Player : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            GameObject projectile;
-            int direction = 1;
-            if (Facing == Facing.LEFT)
+            Vector3 spawnPoint = ProjectileSpawnPoints[(int)Facing].position;
+            Quaternion rotation = Quaternion.identity;
+            switch (Facing)
             {
-                direction = -1;
+                case Facing.LEFT:
+                    rotation = Quaternion.Euler(0, 180, 0);
+                    break;
+                case Facing.RIGHT:
+                    rotation = Quaternion.identity;
+                    break;
+                case Facing.DOWN:
+                    rotation = Quaternion.Euler(0, 0, -90);
+                    break;
+                case Facing.UP:
+                    rotation = Quaternion.Euler(0, 0, 90);
+                    break;
             }
-            projectile = GameObject.Instantiate(ProjectilePrefab, ProjectileSpawnPoints[(int)Facing].position, Quaternion.identity);
-            projectile.GetComponent<PlayerProjectile>().MoveVector = new Vector2(direction, -1);
-            projectile.transform.localScale = new Vector3(direction, 1, 1);
-            projectile = GameObject.Instantiate(ProjectilePrefab, ProjectileSpawnPoints[(int)Facing].position, Quaternion.identity);
-            projectile.GetComponent<PlayerProjectile>().MoveVector = new Vector2(direction, 0);
-            projectile.transform.localScale = new Vector3(direction, 1, 1);
-            projectile = GameObject.Instantiate(ProjectilePrefab, ProjectileSpawnPoints[(int)Facing].position, Quaternion.identity);
-            projectile.GetComponent<PlayerProjectile>().MoveVector = new Vector2(direction, 1);
-            projectile.transform.localScale = new Vector3(direction, 1, 1);
+            Vector2[] moveVectors = new Vector2[3];
+            switch ((int)LastMoveVector.x) // oh god this is horrible
+            {
+                case -1:
+                    switch ((int)LastMoveVector.y)
+                    {
+                        case -1:
+                            moveVectors[0] = new Vector2(-1, -0.5f);
+                            moveVectors[1] = new Vector2(-1, -1);
+                            moveVectors[2] = new Vector2(-0.5f, -1);
+                            break;
+                        case 0:
+                            moveVectors[0] = new Vector2(-1, 0.5f);
+                            moveVectors[1] = new Vector2(-1, 0);
+                            moveVectors[2] = new Vector2(-1, -0.5f);
+                            break;
+                        case 1:
+                            moveVectors[0] = new Vector2(-1, 0.5f);
+                            moveVectors[1] = new Vector2(-1, 1);
+                            moveVectors[2] = new Vector2(-.5f, 1);
+                            break;
+                    }
+                    break;
+                case 0:
+                    switch ((int)LastMoveVector.y)
+                    {
+                        case -1:
+                            moveVectors[0] = new Vector2(-0.5f, -1);
+                            moveVectors[1] = new Vector2(0, -1);
+                            moveVectors[2] = new Vector2(0.5f, -1);
+                            break;
+                        case 0: // this should be the default spawn case
+                            moveVectors[0] = new Vector2(1, 0.5f);
+                            moveVectors[1] = new Vector2(1, 0);
+                            moveVectors[2] = new Vector2(1, 0.5f);
+                            break;
+                        case 1:
+                            moveVectors[0] = new Vector2(-0.5f, 1);
+                            moveVectors[1] = new Vector2(0, 1);
+                            moveVectors[2] = new Vector2(0.5f, 1);
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch ((int)LastMoveVector.y)
+                    {
+                        case -1:
+                            moveVectors[0] = new Vector2(1, -0.5f);
+                            moveVectors[1] = new Vector2(1, -1);
+                            moveVectors[2] = new Vector2(0.5f, -1);
+                            break;
+                        case 0:
+                            moveVectors[0] = new Vector2(1, 0.5f);
+                            moveVectors[1] = new Vector2(1, 0);
+                            moveVectors[2] = new Vector2(1, -0.5f);
+                            break;
+                        case 1:
+                            moveVectors[0] = new Vector2(1, 0.5f);
+                            moveVectors[1] = new Vector2(1, 1);
+                            moveVectors[2] = new Vector2(0.5f, 1);
+                            break;
+                    }
+                    break;
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject projectile;
+                projectile = Instantiate(ProjectilePrefab, spawnPoint, rotation);
+                projectile.GetComponent<PlayerProjectile>().MoveVector = moveVectors[i];
+            }
         }
     }
 
