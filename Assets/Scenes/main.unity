@@ -157,7 +157,7 @@ MonoBehaviour:
   InactiveEmitterList: []
   PhaseBarrierSpawnTime: 0.5
   PhaseBarrierDeactivateTime: 1.5
-  RandomSpawnChance: 0.5
+  RandomSpawnChance: 0.75
   BarrierDamageAmount: 1
   BarrierDamageTime: 0.5
   HealthBar: {fileID: 1739943811}
@@ -4931,6 +4931,11 @@ Prefab:
     - target: {fileID: 4613341571048722, guid: 37850dd4ec45b4d408769d5b84c417c1, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 61097406982681188, guid: 37850dd4ec45b4d408769d5b84c417c1,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37850dd4ec45b4d408769d5b84c417c1, type: 2}
