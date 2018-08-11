@@ -50,7 +50,10 @@ public class Player : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            SpawnProjectiles();
+            if (controller.CanShoot())
+            {
+                SpawnProjectiles();
+            }
         }
 
         if (CurrentBarrierCollisions > 0)

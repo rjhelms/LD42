@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1857994619855150}
+  m_IsPrefabAsset: 1
+--- !u!1 &1857994619855150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4544778258894856}
+  - component: {fileID: 114160847012873422}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4544778258894856
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1857994619855150}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114160847012873422
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1857994619855150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e097d619cd7d9c42b8aa186ceaa6290, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GridX: 20
+  GridY: 25
+  WorldCamera: {fileID: 0}
+  TargetX: 160
+  TargetY: 200
+  RenderTexture: {fileID: 2100000, guid: b0fd8e3c683871f468e3dda6ccca4ce9, type: 2}
+  CameraLerpSpeed: 0.05
+  CameraPositionOffset: {x: 10, y: 12, z: 0}
+  PlayerVectorMultiplier: 30
+  gameGrid: {fileID: 0}
+  PhaseBarrierPrefab: {fileID: 1657073702913776, guid: 8b5ab784250f09942936534ef7924746,
+    type: 2}
+  PhaseBarrierList: []
+  ActiveEmitterList: []
+  InactiveEmitterList: []
+  PhaseBarrierSpawnTime: 0.5
+  PhaseBarrierDeactivateTime: 1.5
+  RandomSpawnChance: 0.75
+  BarrierDamageAmount: 1
+  BarrierDamageTime: 0.5
+  MaxCannonPower: 24
+  CurrentCannonPower: 0
+  CannonShotEnergy: 3
+  CannonCooldownTime: 1
+  CannonRechargeTime: 0.25
+  CannonCooldown: 0
+  HealthBar: {fileID: 0}
+  PowerBar: {fileID: 0}
+  HealthBarWidth: 24
+  PowerBarWidth: 24

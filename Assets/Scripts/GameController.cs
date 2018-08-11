@@ -35,11 +35,22 @@ public class GameController : MonoBehaviour
     public float RandomSpawnChance = 0.5f;
     public int BarrierDamageAmount = 5;
     public float BarrierDamageTime = 0.5f;
+    public int MaxCannonPower = 24;
+    public int CurrentCannonPower;
+    public int CannonShotEnergy = 3;
+    public float CannonCooldownTime;
+    public float CannonRechargeTime;
+    public bool CannonCooldown;
+
     private float nextBarrierDamageTime;
+    private float nextCannonCooldownTime;
+    private float nextCannonRechargeTime;
 
     [Header("UI Elements")]
     public Transform HealthBar;
+    public Transform PowerBar;
     public int HealthBarWidth = 24;
+    public int PowerBarWidth = 24;
 
     // Use this for initialization
     void Start()
@@ -54,6 +65,7 @@ public class GameController : MonoBehaviour
                                 + ((Vector3)player.LastMoveVector * PlayerVectorMultiplier));
         WorldCamera.transform.position = new Vector3(Mathf.RoundToInt(cameraTargetPosition.x), Mathf.Round(cameraTargetPosition.y),
                                              Mathf.Round(cameraTargetPosition.y - 150));
+        CurrentCannonPower = MaxCannonPower;
     }
 
     // Update is called once per frame
@@ -69,6 +81,24 @@ public class GameController : MonoBehaviour
             nextPhaseBarrierDeactivateTime = Time.time + PhaseBarrierDeactivateTime;
             StartCoroutine("RemovePhaseBarrier");
         }
+        if (CannonCooldown)
+        {
+            if (Time.time > nextCannonCooldownTime)
+            {
+                CannonCooldown = false;
+                nextCannonRechargeTime = Time.time + CannonRechargeTime;
+            }
+        } else
+        {
+            if (Time.time > nextCannonRechargeTime)
+            {
+                if (CurrentCannonPower < MaxCannonPower)
+                {
+                    CurrentCannonPower++;
+                }
+                nextCannonRechargeTime = Time.time + CannonRechargeTime;
+            }
+        }
         Vector3 cameraTargetPosition = (player.transform.position + CameraPositionOffset
                                         + ((Vector3)player.LastMoveVector * PlayerVectorMultiplier));
         Vector3 newCameraPosition = Vector3.Lerp(WorldCamera.transform.position, cameraTargetPosition, CameraLerpSpeed);
@@ -78,6 +108,8 @@ public class GameController : MonoBehaviour
 
         int currentHealthBarWidth = Mathf.RoundToInt(ScoreManager.Instance.HitPoints * HealthBarWidth / ScoreManager.Instance.MaxHitPoints);
         HealthBar.localScale = new Vector3(currentHealthBarWidth, 1, 1);
+        int currentPowerBarWidth = Mathf.RoundToInt(CurrentCannonPower * PowerBarWidth / MaxCannonPower);
+        PowerBar.localScale = new Vector3(currentPowerBarWidth, 1, 1);
     }
 
     private void InitializeCamera()
@@ -228,5 +260,20 @@ public class GameController : MonoBehaviour
             nextBarrierDamageTime = Time.time + BarrierDamageTime;
             Debug.Log("Ouch! " + ScoreManager.Instance.HitPoints);
         }
+    }
+
+    public bool CanShoot()
+    {
+        if (CurrentCannonPower >= CannonShotEnergy)
+        {
+            CurrentCannonPower -= CannonShotEnergy;
+            CannonCooldown = true;
+            nextCannonCooldownTime = Time.time + CannonCooldownTime;
+            return true;
+        } else
+        {
+            return false;
+        }
+            
     }
 }
