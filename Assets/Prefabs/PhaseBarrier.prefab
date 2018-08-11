@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212818334535162488}
   - component: {fileID: 61722935686639444}
   - component: {fileID: 50613988838655806}
+  - component: {fileID: 114546467129824764}
   m_Layer: 11
   m_Name: PhaseBarrier
   m_TagString: PhaseBarrier
@@ -50,7 +51,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1657073702913776}
   m_BodyType: 2
-  m_Simulated: 1
+  m_Simulated: 0
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
@@ -87,6 +88,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 20, y: 25}
   m_EdgeRadius: 0
+--- !u!114 &114546467129824764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1657073702913776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af3ba23793d6e4b42992f5f033454f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  State: 0
+  InTime: 1
+  OutTime: 0
+  FlashTime: 0.2
 --- !u!212 &212818334535162488
 SpriteRenderer:
   m_ObjectHideFlags: 1
