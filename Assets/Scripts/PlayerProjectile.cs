@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerProjectile : MonoBehaviour {
     public Vector2 MoveVector;
     public int MoveSpeed = 2;
-    public float TimeToLive = 5f;
+    public float TimeToLive = 2f;
 
     new private Rigidbody2D rigidbody2D;
     private float dieTime;
