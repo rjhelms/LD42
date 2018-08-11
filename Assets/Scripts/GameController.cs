@@ -25,24 +25,32 @@ public class GameController : MonoBehaviour
     public List<GameObject> PhaseBarrierList;
     public List<GameObject> ActiveEmitterList;
     public List<GameObject> InactiveEmitterList;
-    public float PhaseBarrierTime;
-    private float nextPhaseBarrierTime;
-
+    public float PhaseBarrierSpawnTime = 0.75f;
+    public float PhaseBarrierDeactivateTime = 1.5f;
+    private float nextPhaseBarrierSpawnTime;
+    private float nextPhaseBarrierDeactivateTime;
     // Use this for initialization
     void Start()
     {
         InitializeCamera();
-        nextPhaseBarrierTime = Time.time + PhaseBarrierTime;
+        nextPhaseBarrierSpawnTime = Time.time + PhaseBarrierSpawnTime;
+        nextPhaseBarrierDeactivateTime = Time.time + PhaseBarrierDeactivateTime;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time >= nextPhaseBarrierTime)
+        if (Time.time >= nextPhaseBarrierSpawnTime)
         {
-            nextPhaseBarrierTime = Time.time + PhaseBarrierTime;
+            nextPhaseBarrierSpawnTime = Time.time + PhaseBarrierSpawnTime;
             StartCoroutine("CreatePhaseBarrier");
+        }
+        if (Time.time >= nextPhaseBarrierDeactivateTime)
+        {
+            Debug.Log("Removing barriers");
+            nextPhaseBarrierDeactivateTime = Time.time + PhaseBarrierDeactivateTime;
+            StartCoroutine("RemovePhaseBarrier");
         }
         Vector3 cameraTargetPosition = (player.transform.position + CameraPositionOffset
                                         + ((Vector3)player.LastMoveVector * PlayerVectorMultiplier));
@@ -87,7 +95,6 @@ public class GameController : MonoBehaviour
     IEnumerator CreatePhaseBarrier()
     {
         List<GameObject> tempEmitterList = new List<GameObject>(ActiveEmitterList);
-        Debug.Log(tempEmitterList.Count);
         foreach (GameObject emitter in tempEmitterList)
         {
             bool spawnedBarrier = false;
@@ -146,6 +153,42 @@ public class GameController : MonoBehaviour
                 else
                 {
                     yield return null;
+                }
+            }
+        }
+    }
+
+    IEnumerator RemovePhaseBarrier()
+    {
+        foreach (GameObject emitter in InactiveEmitterList)
+        {
+            List<GameObject> emitterBarriers = new List<GameObject>();
+            bool removedBarriers = false;
+            while (!removedBarriers)
+            {
+                foreach (GameObject barrier in PhaseBarrierList)
+                {
+                    if (barrier.GetComponent<PhaseBarrier>().ParentEmitter == emitter)
+                    {
+                        emitterBarriers.Add(barrier);
+                    }
+                }
+                if (emitterBarriers.Count > 0)
+                {
+                    GameObject randomBarrier = emitterBarriers[Random.Range(0, emitterBarriers.Count)];
+                    if (randomBarrier.GetComponent<PhaseBarrier>().State == PhaseBarrierState.ACTIVE)
+                    {
+                        randomBarrier.GetComponent<PhaseBarrier>().Die();
+                        removedBarriers = true;
+                    }
+                    else
+                    {
+                        yield return null;
+                    }
+                }
+                else
+                {
+                    removedBarriers = true;
                 }
             }
         }

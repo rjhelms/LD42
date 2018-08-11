@@ -49,6 +49,7 @@ public class PhaseBarrier : MonoBehaviour {
                 {
                     spriteRenderer.enabled = true;
                     rigidbody2D.simulated = true;
+                    State = PhaseBarrierState.ACTIVE;
                 }
                 break;
             case PhaseBarrierState.ACTIVE:
