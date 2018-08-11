@@ -146,11 +146,14 @@ MonoBehaviour:
   TargetX: 160
   TargetY: 200
   RenderTexture: {fileID: 2100000, guid: b0fd8e3c683871f468e3dda6ccca4ce9, type: 2}
+  CameraLerpSpeed: 0.05
+  CameraPositionOffset: {x: 10, y: 12, z: 0}
+  PlayerVectorMultiplier: 30
   PhaseBarrierPrefab: {fileID: 1657073702913776, guid: 8b5ab784250f09942936534ef7924746,
     type: 2}
   PhaseBarrierList:
   - {fileID: 291742657}
-  PhaseBarrierTime: 1
+  PhaseBarrierTime: 0.75
 --- !u!4 &55945211
 Transform:
   m_ObjectHideFlags: 0
@@ -204,7 +207,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 142510768}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -60, y: -75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1134419575}
@@ -267,7 +270,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4009114125470416, guid: 8b5ab784250f09942936534ef7924746, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4009114125470416, guid: 8b5ab784250f09942936534ef7924746, type: 2}
       propertyPath: m_LocalPosition.y
@@ -611,7 +614,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2031808854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -10, y: -54, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

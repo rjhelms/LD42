@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour
+{
     [Header("Grid System")]
     public int GridX = 20;
     public int GridY = 25;
@@ -14,6 +15,11 @@ public class GameController : MonoBehaviour {
     public Material RenderTexture;
     private float pixelRatioAdjustment;
 
+    public float CameraLerpSpeed = 0.1f;
+    public Vector3 CameraPositionOffset = new Vector3(10, 12, 0);
+    public int PlayerVectorMultiplier = 20;
+    private Player player;
+
     [Header("Phase Barrier Attributes")]
     public GameObject PhaseBarrierPrefab;
     public List<GameObject> PhaseBarrierList;
@@ -21,20 +27,28 @@ public class GameController : MonoBehaviour {
     private float nextPhaseBarrierTime;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         InitializeCamera();
         nextPhaseBarrierTime = Time.time + PhaseBarrierTime;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
-    
+
     // Update is called once per frame
-    void Update () {
-		if (Time.time >= nextPhaseBarrierTime)
+    void Update()
+    {
+        if (Time.time >= nextPhaseBarrierTime)
         {
             nextPhaseBarrierTime = Time.time + PhaseBarrierTime;
             StartCoroutine("CreatePhaseBarrier");
         }
-	}
+        Vector3 cameraTargetPosition = (player.transform.position + CameraPositionOffset
+                                        + ((Vector3)player.lastMoveVector * PlayerVectorMultiplier));
+        Vector3 newCameraPosition = Vector3.Lerp(WorldCamera.transform.position, cameraTargetPosition, CameraLerpSpeed);
+        WorldCamera.transform.position = new Vector3(Mathf.RoundToInt(newCameraPosition.x), Mathf.Round(newCameraPosition.y),
+                                                     WorldCamera.transform.position.z);
+
+    }
 
     private void InitializeCamera()
     {
@@ -106,7 +120,8 @@ public class GameController : MonoBehaviour {
                 GameObject newBarrier = GameObject.Instantiate(PhaseBarrierPrefab, newPosition, Quaternion.identity);
                 PhaseBarrierList.Add(newBarrier);
                 spawnedBarrier = true;
-            } else
+            }
+            else
             {
                 Debug.Log("Yielding");
                 yield return null;
