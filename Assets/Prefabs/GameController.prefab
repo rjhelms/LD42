@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e097d619cd7d9c42b8aa186ceaa6290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InstantiateLevel: 1
   GridX: 20
   GridY: 25
   WorldCamera: {fileID: 0}
@@ -71,7 +72,6 @@ MonoBehaviour:
   RandomSpawnChance: 0.75
   BarrierDamageAmount: 1
   BarrierDamageTime: 0.5
-  MaxCannonPower: 24
   CurrentCannonPower: 0
   CannonShotEnergy: 3
   CannonCooldownTime: 1
@@ -88,4 +88,4 @@ MonoBehaviour:
   LevelText: {fileID: 0}
   Levels:
   - {fileID: 1827710056861416, guid: 0d223cf71b78706429e864c860fadf89, type: 2}
-  - {fileID: 1827710056861416, guid: 0d223cf71b78706429e864c860fadf89, type: 2}
+  - {fileID: 1908123594745250, guid: 21158bac7d1b6b94a9b7e4f84fe21c68, type: 2}
