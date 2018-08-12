@@ -82,7 +82,7 @@ public class GameController : MonoBehaviour
     public float WinTime = 1f;
     public float LoseTime = 1f;
     private float nextStateChange;
-
+    private bool hasStarted = false;
     [Header("Levels")]
     public GameObject[] Levels;
 
@@ -112,10 +112,14 @@ public class GameController : MonoBehaviour
         switch (GameState)
         {
             case GameState.STARTING:
-                CrossFadeAlphaWithCallBack(CoverImage, 0f, StartTime, delegate
+                if (!hasStarted)
                 {
-                    SwitchState(GameState.RUNNING);
-                });
+                    hasStarted = true;
+                    CrossFadeAlphaWithCallBack(CoverImage, 0f, StartTime, delegate
+                    {
+                        SwitchState(GameState.RUNNING);
+                    });
+                };
                 break;
             case GameState.RUNNING:
                 CameraFollow();
