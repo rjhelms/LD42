@@ -36,6 +36,7 @@ public class PlayerProjectile : MonoBehaviour {
         if (collision.gameObject.tag == "PhaseBarrier")
         {
             collision.gameObject.GetComponent<PhaseBarrier>().Die();
+            ScoreManager.Instance.Score += controller.DestroyBarrierScore;
             Destroy(gameObject);
         }
     }

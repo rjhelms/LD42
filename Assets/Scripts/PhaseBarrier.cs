@@ -72,6 +72,5 @@ public class PhaseBarrier : MonoBehaviour {
         nextStateChangeTime = Time.time + OutTime;
         spriteRenderer.enabled = false;
         rigidbody2D.simulated = false;
-        ScoreManager.Instance.Score += controller.DestroyBarrierScore;
     }
 }
