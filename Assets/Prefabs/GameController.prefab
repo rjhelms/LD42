@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e097d619cd7d9c42b8aa186ceaa6290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InstantiateLevel: 1
+  InstantiateLevel: 0
   GameState: 0
   GridX: 20
   GridY: 25
@@ -212,3 +212,4 @@ MonoBehaviour:
   - {fileID: 1908123594745250, guid: 21158bac7d1b6b94a9b7e4f84fe21c68, type: 2}
   - {fileID: 1480214257180128, guid: 7c34b9acee6b5d64fbd9dd256afec718, type: 2}
   - {fileID: 1143292554329550, guid: 0f6aa6daa07879c488c113e85cee1385, type: 2}
+  - {fileID: 1566329013218468, guid: 550f7573cccf98e45a33f1986d4d7726, type: 2}
