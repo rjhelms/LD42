@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    public bool InstantiateLevel = true;
     [Header("Grid System")]
     public int GridX = 20;
     public int GridY = 25;
@@ -66,7 +67,8 @@ public class GameController : MonoBehaviour
     void Start()
     {
         InitializeCamera();
-        Instantiate(Levels[ScoreManager.Instance.Level-1], new Vector3(0, 0, 0), Quaternion.identity);
+        if (InstantiateLevel)
+            Instantiate(Levels[ScoreManager.Instance.Level-1], new Vector3(0, 0, 0), Quaternion.identity);
         nextPhaseBarrierSpawnTime = Time.time + PhaseBarrierSpawnTime;
         nextPhaseBarrierDeactivateTime = Time.time + PhaseBarrierDeactivateTime;
         nextBarrierDamageTime = Time.time + BarrierDamageTime;
