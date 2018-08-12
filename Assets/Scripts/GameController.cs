@@ -38,7 +38,6 @@ public class GameController : MonoBehaviour
     public float RandomSpawnChance = 0.5f;
     public int BarrierDamageAmount = 5;
     public float BarrierDamageTime = 0.5f;
-    public int MaxCannonPower = 24;
     public int CurrentCannonPower;
     public int CannonShotEnergy = 3;
     public float CannonCooldownTime;
@@ -78,7 +77,7 @@ public class GameController : MonoBehaviour
                                 + ((Vector3)player.LastMoveVector * PlayerVectorMultiplier));
         WorldCamera.transform.position = new Vector3(Mathf.RoundToInt(cameraTargetPosition.x), Mathf.Round(cameraTargetPosition.y),
                                              Mathf.Round(cameraTargetPosition.y - 150));
-        CurrentCannonPower = MaxCannonPower;
+        CurrentCannonPower = ScoreManager.Instance.MaxCannonPower;
         ScoreText.text = string.Format("{0}", ScoreManager.Instance.Score);
         LevelText.text = string.Format("LEVEL {0}", ScoreManager.Instance.Level);
     }
@@ -112,7 +111,7 @@ public class GameController : MonoBehaviour
         {
             if (Time.time > nextCannonRechargeTime)
             {
-                if (CurrentCannonPower < MaxCannonPower)
+                if (CurrentCannonPower < ScoreManager.Instance.MaxCannonPower)
                 {
                     CurrentCannonPower++;
                 }
@@ -128,7 +127,7 @@ public class GameController : MonoBehaviour
 
         int currentHealthBarWidth = Mathf.RoundToInt(ScoreManager.Instance.HitPoints * HealthBarWidth / ScoreManager.Instance.MaxHitPoints);
         HealthBar.localScale = new Vector3(currentHealthBarWidth, 1, 1);
-        int currentPowerBarWidth = Mathf.RoundToInt(CurrentCannonPower * PowerBarWidth / MaxCannonPower);
+        int currentPowerBarWidth = Mathf.RoundToInt(CurrentCannonPower * PowerBarWidth / ScoreManager.Instance.MaxCannonPower);
         PowerBar.localScale = new Vector3(currentPowerBarWidth, 1, 1);
         ScoreText.text = string.Format("{0}", ScoreManager.Instance.Score);
     }
