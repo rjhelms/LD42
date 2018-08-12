@@ -77,7 +77,15 @@ MonoBehaviour:
   CannonCooldownTime: 1
   CannonRechargeTime: 0.25
   CannonCooldown: 0
+  DeactivatEmitterScore: 200
+  DestroyBarrierScore: 50
+  LevelClearScore: 1000
   HealthBar: {fileID: 0}
   PowerBar: {fileID: 0}
   HealthBarWidth: 24
   PowerBarWidth: 24
+  ScoreText: {fileID: 0}
+  LevelText: {fileID: 0}
+  Levels:
+  - {fileID: 1827710056861416, guid: 0d223cf71b78706429e864c860fadf89, type: 2}
+  - {fileID: 1827710056861416, guid: 0d223cf71b78706429e864c860fadf89, type: 2}
