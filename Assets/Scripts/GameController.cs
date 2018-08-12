@@ -330,7 +330,10 @@ public class GameController : MonoBehaviour
                 if (emitterBarriers.Count > 0)
                 {
                     GameObject randomBarrier = emitterBarriers[Random.Range(0, emitterBarriers.Count)];
-                    if (randomBarrier != null & randomBarrier.GetComponent<PhaseBarrier>().State == PhaseBarrierState.ACTIVE)
+                    if (randomBarrier == null)
+                    {
+                        yield return null;
+                    } else if (randomBarrier != null & randomBarrier.GetComponent<PhaseBarrier>().State == PhaseBarrierState.ACTIVE)
                     {
                         randomBarrier.GetComponent<PhaseBarrier>().Die();
                         removedBarriers = true;
