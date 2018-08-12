@@ -29,15 +29,16 @@ Mandatory:
 - level design
 - balance
 
-
 Very important:
 - music
-- sound
 - title / instruction screen
 
 Bug fix:
 - occasionally still crashing with null GameObject in RemovePhaseBarrier
+	- I haven't seen this in a while - it is fixed???
 
 Nice to have:
 - more terrain textures
 - multiple (random) phase barrier sprites
+- robot fire / phase barrier spawn sounds
+	- only if on screen
