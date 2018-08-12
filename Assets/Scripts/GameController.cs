@@ -83,6 +83,20 @@ public class GameController : MonoBehaviour
     public float LoseTime = 1f;
     private float nextStateChange;
     private bool hasStarted = false;
+
+    [Header("Sounds")]
+    public AudioClip BarrierHitSound;
+    public AudioClip RobotHitSound;
+    public AudioClip BarrierKill;
+    public AudioClip RobotKill;
+    public AudioClip EmitterKill;
+    public AudioClip PowerUp;
+    public AudioClip LevelClear;
+    public AudioClip LivesDown;
+    public AudioClip PlayerFire;
+    public AudioClip PlayerShotsOut;
+    public AudioSource FXSource;
+
     [Header("Levels")]
     public GameObject[] Levels;
 
@@ -140,6 +154,7 @@ public class GameController : MonoBehaviour
                 }
                 break;
         }
+
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
         {
             Win();
@@ -148,6 +163,7 @@ public class GameController : MonoBehaviour
         {
             Lose();
         }
+
         if (Time.time >= nextPhaseBarrierSpawnTime)
         {
             nextPhaseBarrierSpawnTime = Time.time + PhaseBarrierSpawnTime;
@@ -344,6 +360,9 @@ public class GameController : MonoBehaviour
         {
             ScoreManager.Instance.Score += LevelClearScore;
             Win();
+        } else
+        {
+            FXSource.PlayOneShot(EmitterKill);
         }
     }
 
@@ -353,12 +372,14 @@ public class GameController : MonoBehaviour
         {
             TakeDamage(BarrierDamageAmount);
             nextBarrierDamageTime = Time.time + BarrierDamageTime;
+            FXSource.PlayOneShot(BarrierHitSound);
         }
     }
 
     public void RobotHit()
     {
         TakeDamage(RobotDamageAmount);
+        FXSource.PlayOneShot(RobotHitSound);
     }
 
     public void TakeDamage(int damageAmount)
@@ -376,10 +397,12 @@ public class GameController : MonoBehaviour
         {
             CurrentCannonPower -= CannonShotEnergy;
             CannonCooldown = true;
+            FXSource.PlayOneShot(PlayerFire);
             nextCannonCooldownTime = Time.time + CannonCooldownTime;
             return true;
         } else
         {
+            FXSource.PlayOneShot(PlayerShotsOut);
             return false;
         }
     }
@@ -412,6 +435,7 @@ public class GameController : MonoBehaviour
     {
         SwitchState(GameState.WINNING);
         ScoreManager.Instance.Level++;
+        FXSource.PlayOneShot(LevelClear);
         CrossFadeAlphaWithCallBack(CoverImage, 1f, WinTime, delegate
         {
             if (ScoreManager.Instance.Level > Levels.Length)
@@ -429,6 +453,7 @@ public class GameController : MonoBehaviour
     {
         SwitchState(GameState.LOSING);
         ScoreManager.Instance.Lives--;
+        FXSource.PlayOneShot(LivesDown);
         CrossFadeAlphaWithCallBack(CoverImage, 1f, LoseTime, delegate
         {
             if (ScoreManager.Instance.Lives >= 0)

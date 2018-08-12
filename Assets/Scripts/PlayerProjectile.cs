@@ -40,6 +40,7 @@ public class PlayerProjectile : MonoBehaviour {
         {
             collision.gameObject.GetComponent<PhaseBarrier>().Die();
             ScoreManager.Instance.Score += controller.DestroyBarrierScore;
+            controller.FXSource.PlayOneShot(controller.BarrierKill);
             Destroy(gameObject);
         }
         else if (collision.gameObject.tag == "Enemy")

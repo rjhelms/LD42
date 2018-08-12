@@ -247,6 +247,7 @@ public class Player : MonoBehaviour
         } else if (collision.gameObject.tag == "PowerUp")
         {
             collision.gameObject.GetComponent<PowerUp>().Consume();
+            controller.FXSource.PlayOneShot(controller.PowerUp);
         }
     }
 

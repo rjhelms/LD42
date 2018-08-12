@@ -120,6 +120,7 @@ public class Robot : MonoBehaviour {
     {
         ScoreManager.Instance.Score += ScoreValue;
         Instantiate(DeadRobot, transform.position, Quaternion.identity);
+        controller.FXSource.PlayOneShot(controller.RobotKill);
         Destroy(gameObject);
     }
 
