@@ -439,8 +439,7 @@ public class GameController : MonoBehaviour
             }
             else
             {
-                Debug.Log("You lose!");
-                // TODO: go to lose screen
+                SceneManager.LoadScene("lose");
             }
         });
     }
