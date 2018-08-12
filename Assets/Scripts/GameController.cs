@@ -405,6 +405,7 @@ public class GameController : MonoBehaviour
                 break;
         }
         GameState = newState;
+        Debug.Log("Game state is " + GameState);
     }
 
     public void Win()
@@ -415,8 +416,7 @@ public class GameController : MonoBehaviour
         {
             if (ScoreManager.Instance.Level > Levels.Length)
             {
-                Debug.Log("You win!");
-                // TODO: go to win screen
+                SceneManager.LoadScene("win");
             }
             else
             {

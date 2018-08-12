@@ -28,7 +28,7 @@ TODO:
 Mandatory:
 - level design
 - balance
-- control flow
+- lose screens
 
 Very important:
 - music
