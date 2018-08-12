@@ -37,55 +37,61 @@ public class Robot : MonoBehaviour {
         transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), 
                                          Mathf.RoundToInt(transform.position.y));
         spriteRenderer.sprite = DirectionSprites[(int)Facing];
-        if (Time.time > nextSpawnProjectileTime)
+        if (controller.GameState == GameState.RUNNING)
         {
-            if (Random.value < SpawnProjectileChance)
+            if (Time.time > nextSpawnProjectileTime)
             {
-                SpawnProjectiles();
+                if (Random.value < SpawnProjectileChance)
+                {
+                    SpawnProjectiles();
+                }
+                nextSpawnProjectileTime = Time.time + SpawnProjectileTime;
             }
-            nextSpawnProjectileTime = Time.time + SpawnProjectileTime;
         }
 	}
 
     void FixedUpdate()
     {
-        if (CurrentCollisions > 0)
+        if (controller.GameState == GameState.RUNNING)
         {
+            if (CurrentCollisions > 0)
+            {
+                switch (Facing)
+                {
+                    case Facing.LEFT:
+                        Facing = Facing.RIGHT;
+                        break;
+                    case Facing.RIGHT:
+                        Facing = Facing.LEFT;
+                        break;
+                    case Facing.UP:
+                        Facing = Facing.DOWN;
+                        break;
+                    case Facing.DOWN:
+                        Facing = Facing.UP;
+                        break;
+                }
+            }
+            Vector2 moveVector = Vector2.zero;
             switch (Facing)
             {
                 case Facing.LEFT:
-                    Facing = Facing.RIGHT;
+                    moveVector = new Vector2(-1, 0);
                     break;
                 case Facing.RIGHT:
-                    Facing = Facing.LEFT;
+                    moveVector = new Vector2(1, 0);
                     break;
                 case Facing.UP:
-                    Facing = Facing.DOWN;
+                    moveVector = new Vector2(0, 1);
                     break;
                 case Facing.DOWN:
-                    Facing = Facing.UP;
+                    moveVector = new Vector2(0, -1);
                     break;
             }
+            moveVector *= MoveSpeed;
+            Vector3 newPosition = transform.position + (Vector3)moveVector;
+            rigidbody2D.MovePosition(newPosition);
         }
-        Vector2 moveVector = Vector2.zero;
-        switch (Facing)
-        {
-            case Facing.LEFT:
-                moveVector = new Vector2(-1, 0);
-                break;
-            case Facing.RIGHT:
-                moveVector = new Vector2(1, 0);
-                break;
-            case Facing.UP:
-                moveVector = new Vector2(0, 1);
-                break;
-            case Facing.DOWN:
-                moveVector = new Vector2(0, -1);
-                break;
-        }
-        moveVector *= MoveSpeed;
-        Vector3 newPosition = transform.position + (Vector3)moveVector;
-        rigidbody2D.MovePosition(newPosition);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -31,7 +31,10 @@ public class RobotProjectile : MonoBehaviour
 
     void FixedUpdate()
     {
-        rigidbody2D.MovePosition(transform.position + (Vector3)MoveVector * MoveSpeed);
+        if (controller.GameState == GameState.RUNNING)
+        {
+            rigidbody2D.MovePosition(transform.position + (Vector3)MoveVector * MoveSpeed);
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)

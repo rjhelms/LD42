@@ -35,33 +35,36 @@ public class PhaseBarrier : MonoBehaviour {
         controller = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y);
     }
-	
-	// Update is called once per frame
-	void Update () {
-		if (State != PhaseBarrierState.ACTIVE & Time.time > nextFlashTime)
+
+    // Update is called once per frame
+    void Update() {
+        if (State != PhaseBarrierState.ACTIVE & Time.time > nextFlashTime)
         {
             nextFlashTime = Time.time + FlashTime;
             spriteRenderer.enabled = !spriteRenderer.enabled;
         }
-        switch (State)
+        if (controller.GameState == GameState.RUNNING)
         {
-            case PhaseBarrierState.IN:
-                if (Time.time > nextStateChangeTime)
-                {
-                    spriteRenderer.enabled = true;
-                    rigidbody2D.simulated = true;
-                    State = PhaseBarrierState.ACTIVE;
-                }
-                break;
-            case PhaseBarrierState.ACTIVE:
-                break;
-            case PhaseBarrierState.OUT:
-                if (Time.time > nextStateChangeTime)
-                {
-                    controller.PhaseBarrierList.Remove(gameObject);
-                    Destroy(gameObject);
-                }
-                break;
+            switch (State)
+            {
+                case PhaseBarrierState.IN:
+                    if (Time.time > nextStateChangeTime)
+                    {
+                        spriteRenderer.enabled = true;
+                        rigidbody2D.simulated = true;
+                        State = PhaseBarrierState.ACTIVE;
+                    }
+                    break;
+                case PhaseBarrierState.ACTIVE:
+                    break;
+                case PhaseBarrierState.OUT:
+                    if (Time.time > nextStateChangeTime)
+                    {
+                        controller.PhaseBarrierList.Remove(gameObject);
+                        Destroy(gameObject);
+                    }
+                    break;
+            }
         }
 	}
 

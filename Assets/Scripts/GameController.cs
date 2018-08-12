@@ -4,9 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+public enum GameState
+{
+    STARTING,
+    RUNNING,
+    PAUSED,
+    WINNING,
+    LOSING,
+}
+
 public class GameController : MonoBehaviour
 {
     public bool InstantiateLevel = true;
+    public GameState GameState;
+
     [Header("Grid System")]
     public int GridX = 20;
     public int GridY = 25;
@@ -62,9 +73,18 @@ public class GameController : MonoBehaviour
     public int LivesImageTile = 10;
     public Text ScoreText;
     public Text LevelText;
+    public Image CoverImage;
+
+    [Header("Game State Timing")]
+    public float StartTime = 1f;
+    public float PauseFadeTime = 0.2f;
+    public float WinTime = 1f;
+    public float LoseTime = 1f;
+    private float nextStateChange;
 
     [Header("Levels")]
     public GameObject[] Levels;
+
     // Use this for initialization
     void Start()
     {
@@ -83,12 +103,37 @@ public class GameController : MonoBehaviour
         CurrentCannonPower = ScoreManager.Instance.MaxCannonPower;
         ScoreText.text = string.Format("{0}", ScoreManager.Instance.Score);
         LevelText.text = string.Format("LEVEL {0}", ScoreManager.Instance.Level);
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        switch (GameState)
+        {
+            case GameState.STARTING:
+                CrossFadeAlphaWithCallBack(CoverImage, 0f, StartTime, delegate
+                {
+                    SwitchState(GameState.RUNNING);
+                });
+                break;
+            case GameState.RUNNING:
+                if (Input.GetButtonDown("Pause"))
+                {
+                    SwitchState(GameState.PAUSED);
+                    CrossFadeAlphaWithCallBack(CoverImage, 0.5f, PauseFadeTime, delegate { });
+                }
+                break;
+            case GameState.PAUSED:
+                if (Input.GetButtonDown("Pause"))
+                {
+                    SwitchState(GameState.PAUSED);
+                    CrossFadeAlphaWithCallBack(CoverImage, 0f, PauseFadeTime, delegate
+                    {
+                        SwitchState(GameState.RUNNING);
+                    });
+                }
+                break;
+        }
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
         {
             ScoreManager.Instance.Level++;
@@ -296,6 +341,7 @@ public class GameController : MonoBehaviour
     {
         ScoreManager.Instance.HitPoints -= RobotDamageAmount;
     }
+
     public bool CanShoot()
     {
         if (CurrentCannonPower >= CannonShotEnergy)
@@ -308,6 +354,54 @@ public class GameController : MonoBehaviour
         {
             return false;
         }
-            
+    }
+
+    public void SwitchState(GameState newState)
+    {
+        switch (newState)
+        {
+            case (GameState.STARTING):
+                Time.timeScale = 0f;
+                break;
+            case (GameState.RUNNING):
+                Time.timeScale = 1f;
+                break;
+            case (GameState.PAUSED):
+                Time.timeScale = 0f;
+                break;
+            case (GameState.WINNING):
+                Time.timeScale = 0f;
+                break;
+            case (GameState.LOSING):
+                Time.timeScale = 0f;
+                break;
+        }
+        GameState = newState;
+    }
+
+    void CrossFadeAlphaWithCallBack(Image img, float alpha, float duration, System.Action action)
+    {
+        StartCoroutine(CrossFadeAlphaCOR(img, alpha, duration, action));
+    }
+
+    IEnumerator CrossFadeAlphaCOR(Image img, float alpha, float duration, System.Action action)
+    {
+        Color currentColor = img.color;
+
+        Color visibleColor = img.color;
+        visibleColor.a = alpha;
+
+
+        float counter = 0;
+
+        while (counter < duration)
+        {
+            counter += Time.unscaledDeltaTime;
+            img.color = Color.Lerp(currentColor, visibleColor, counter / duration);
+            yield return null;
+        }
+
+        //Done. Execute callback
+        action.Invoke();
     }
 }

@@ -48,17 +48,20 @@ public class Player : MonoBehaviour
 
         transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), Mathf.RoundToInt(transform.position.y));
 
-        if (Input.GetButtonDown("Fire1"))
+        if (controller.GameState == GameState.RUNNING)
         {
-            if (controller.CanShoot())
+            if (Input.GetButtonDown("Fire1"))
             {
-                SpawnProjectiles();
+                if (controller.CanShoot())
+                {
+                    SpawnProjectiles();
+                }
             }
-        }
 
-        if (CurrentBarrierCollisions > 0)
-        {
-            controller.BarrierHit();
+            if (CurrentBarrierCollisions > 0)
+            {
+                controller.BarrierHit();
+            }
         }
     }
 
@@ -104,39 +107,42 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector2 moveVector = new Vector2(0, 0);
+        if (controller.GameState == GameState.RUNNING)
+        {
+            Vector2 moveVector = new Vector2(0, 0);
 
-        if (Input.GetAxis("Horizontal") > 0)
-        {
-            moveVector += new Vector2(1, 0);
-        }
-        else if (Input.GetAxis("Horizontal") < 0)
-        {
-            moveVector += new Vector2(-1, 0);
-        }
-
-        if (Input.GetAxis("Vertical") > 0)
-        {
-            moveVector += new Vector2(0, 1);
-        }
-        else if (Input.GetAxis("Vertical") < 0)
-        {
-            moveVector += new Vector2(0, -1);
-        }
-
-        Vector2 newPosition = (Vector2)transform.position + (moveVector * MoveSpeed);
-        rigidbody2D.MovePosition(newPosition);
-
-        if (moveVector.magnitude > 0)
-        {
-            LastMoveVector = moveVector;
-            if (Time.fixedTime >= nextAnimFrame)
+            if (Input.GetAxis("Horizontal") > 0)
             {
-                CurrentAnimFrame++;
-                nextAnimFrame = Time.fixedTime + AnimTime;
-                if (CurrentAnimFrame == MaxAnimFrame)
+                moveVector += new Vector2(1, 0);
+            }
+            else if (Input.GetAxis("Horizontal") < 0)
+            {
+                moveVector += new Vector2(-1, 0);
+            }
+
+            if (Input.GetAxis("Vertical") > 0)
+            {
+                moveVector += new Vector2(0, 1);
+            }
+            else if (Input.GetAxis("Vertical") < 0)
+            {
+                moveVector += new Vector2(0, -1);
+            }
+
+            Vector2 newPosition = (Vector2)transform.position + (moveVector * MoveSpeed);
+            rigidbody2D.MovePosition(newPosition);
+
+            if (moveVector.magnitude > 0)
+            {
+                LastMoveVector = moveVector;
+                if (Time.fixedTime >= nextAnimFrame)
                 {
-                    CurrentAnimFrame = 0;
+                    CurrentAnimFrame++;
+                    nextAnimFrame = Time.fixedTime + AnimTime;
+                    if (CurrentAnimFrame == MaxAnimFrame)
+                    {
+                        CurrentAnimFrame = 0;
+                    }
                 }
             }
         }
