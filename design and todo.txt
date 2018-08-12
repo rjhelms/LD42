@@ -15,5 +15,12 @@ DESIGN:
 	
 - also have a "phase cannon" that temporarily restores - but it recharges slowly
 
+UPGRADES:
+- max power increase - by 4 each time?
+- health
+
+ENEMIES:
+- patrol bots, mostly - U/D and L/R
+
 TODO:
 - occasionally still crashing with null GameObject in RemovePhaseBarrier
