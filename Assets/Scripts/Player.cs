@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
 
         if (CurrentBarrierCollisions > 0)
         {
-            controller.CheckHit();
+            controller.BarrierHit();
         }
     }
 

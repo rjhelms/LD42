@@ -37,6 +37,7 @@ public class GameController : MonoBehaviour
     public float PhaseBarrierDeactivateTime = 1.5f;
     public float RandomSpawnChance = 0.5f;
     public int BarrierDamageAmount = 5;
+    public int RobotDamageAmount = 1;
     public float BarrierDamageTime = 0.5f;
     public int CurrentCannonPower;
     public int CannonShotEnergy = 3;
@@ -282,16 +283,19 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void CheckHit()
+    public void BarrierHit()
     {
         if (Time.time > nextBarrierDamageTime)
         {
             ScoreManager.Instance.HitPoints -= BarrierDamageAmount;
             nextBarrierDamageTime = Time.time + BarrierDamageTime;
-            Debug.Log("Ouch! " + ScoreManager.Instance.HitPoints);
         }
     }
 
+    public void RobotHit()
+    {
+        ScoreManager.Instance.HitPoints -= RobotDamageAmount;
+    }
     public bool CanShoot()
     {
         if (CurrentCannonPower >= CannonShotEnergy)

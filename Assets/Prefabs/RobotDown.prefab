@@ -11,6 +11,21 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1427378152279988}
   m_IsPrefabAsset: 1
+--- !u!1 &1397800978690816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4953914904815874}
+  m_Layer: 0
+  m_Name: ProjectileSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1427378152279988
 GameObject:
   m_ObjectHideFlags: 0
@@ -39,8 +54,22 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 20, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4953914904815874}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4953914904815874
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1397800978690816}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10, y: 33, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4712959005646132}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50637643993070092
@@ -98,7 +127,9 @@ MonoBehaviour:
   HitPoints: 1
   ScoreValue: 200
   MoveSpeed: 1
-  Projectile: {fileID: 0}
+  ProjectilePrefab: {fileID: 1866459108875194, guid: 3e56e8a5c7526194bb491eae1c24802e,
+    type: 2}
+  ProjectileSpawnPoint: {fileID: 4953914904815874}
   DeadRobot: {fileID: 1205239957429462, guid: 80e82d2186a31f7478ffa5d3d3e0f22f, type: 2}
 --- !u!212 &212252746060794192
 SpriteRenderer:

@@ -22,10 +22,10 @@ TagManager:
   - Player
   - Terrain
   - PhaseBarrier
-  - Projectile
+  - FriendlyProjectile
   - PowerUp
   - Enemy
-  - 
+  - EnemyProjectile
   - 
   - 
   - 

@@ -10,19 +10,26 @@ public class Robot : MonoBehaviour {
     public int HitPoints = 1;
     public int ScoreValue = 200;
     public int MoveSpeed = 1;
-    public GameObject Projectile;
+
+    public GameObject ProjectilePrefab;
+    public Transform ProjectileSpawnPoint;
     public GameObject DeadRobot;
+
+    public float SpawnProjectileTime = 0.75f;
+    public float SpawnProjectileChance = 0.75f;
 
     private Rigidbody2D rigidbody2D;
     private SpriteRenderer spriteRenderer;
     private GameController controller;
     private int CurrentCollisions;
+    private float nextSpawnProjectileTime;
 
 	// Use this for initialization
 	void Start () {
         rigidbody2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         controller = FindObjectOfType<GameController>();
+        nextSpawnProjectileTime = Time.time + SpawnProjectileTime;
 	}
 	
 	// Update is called once per frame
@@ -30,6 +37,14 @@ public class Robot : MonoBehaviour {
         transform.position = new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), 
                                          Mathf.RoundToInt(transform.position.y));
         spriteRenderer.sprite = DirectionSprites[(int)Facing];
+        if (Time.time > nextSpawnProjectileTime)
+        {
+            if (Random.value < SpawnProjectileChance)
+            {
+                SpawnProjectiles();
+            }
+            nextSpawnProjectileTime = Time.time + SpawnProjectileTime;
+        }
 	}
 
     void FixedUpdate()
@@ -100,5 +115,34 @@ public class Robot : MonoBehaviour {
         ScoreManager.Instance.Score += ScoreValue;
         Instantiate(DeadRobot, transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    private void SpawnProjectiles()
+    {
+        Vector3 spawnPoint = ProjectileSpawnPoint.transform.position;
+        Quaternion rotation = Quaternion.identity;
+        Vector2 moveVector = Vector2.zero;
+        switch (Facing)
+        {
+            case Facing.LEFT:
+                rotation = Quaternion.Euler(0, 180, 0);
+                moveVector = new Vector2(-1, 0);
+                break;
+            case Facing.RIGHT:
+                rotation = Quaternion.identity;
+                moveVector = new Vector2(1, 0);
+                break;
+            case Facing.DOWN:
+                rotation = Quaternion.Euler(0, 0, -90);
+                moveVector = new Vector2(0, -1);
+                break;
+            case Facing.UP:
+                rotation = Quaternion.Euler(0, 0, 90);
+                moveVector = new Vector2(0, 1);
+                break;
+        }
+        GameObject projectile;
+        projectile = Instantiate(ProjectilePrefab, spawnPoint, rotation);
+        projectile.GetComponent<RobotProjectile>().MoveVector = moveVector;
     }
 }

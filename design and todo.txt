@@ -22,11 +22,22 @@ UPGRADES:
 ENEMIES:
 - patrol bots, mostly - U/D and L/R
 
+
 TODO:
-- occasionally still crashing with null GameObject in RemovePhaseBarrier
-- music
-- sound
-- robot projectiles
+
+Mandatory:
 - level design
 - balance
 - control flow
+
+Very important:
+- music
+- sound
+- title / instruction screen
+
+Bug fix:
+- occasionally still crashing with null GameObject in RemovePhaseBarrier
+
+Nice to have:
+- more terrain textures
+- multiple (random) phase barrier sprites
