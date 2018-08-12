@@ -27,11 +27,12 @@ TODO:
 
 Mandatory:
 - level design
-- balance
+- balance - reduce health???
+- escape to quit
 
 Very important:
-- music
 - title / instruction screen
+- multiple (random) phase barrier sprites
 
 Bug fix:
 - occasionally still crashing with null GameObject in RemovePhaseBarrier
@@ -39,6 +40,5 @@ Bug fix:
 
 Nice to have:
 - more terrain textures
-- multiple (random) phase barrier sprites
 - robot fire / phase barrier spawn sounds
 	- only if on screen
