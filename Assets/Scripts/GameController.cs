@@ -167,14 +167,6 @@ public class GameController : MonoBehaviour
                 break;
         }
 
-        if (Input.GetKeyDown(KeyCode.KeypadPlus))
-        {
-            Win();
-        }
-        if (Input.GetKeyDown(KeyCode.KeypadMinus))
-        {
-            Lose();
-        }
 
         if (Time.time >= nextPhaseBarrierSpawnTime)
         {
