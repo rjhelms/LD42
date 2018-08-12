@@ -430,6 +430,7 @@ public class GameController : MonoBehaviour
             if (ScoreManager.Instance.Lives >= 0)
             {
                 // reload current level
+                ScoreManager.Instance.HitPoints = ScoreManager.Instance.MaxHitPoints;
                 SceneManager.LoadScene("main");
             }
             else
