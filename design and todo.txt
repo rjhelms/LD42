@@ -24,3 +24,9 @@ ENEMIES:
 
 TODO:
 - occasionally still crashing with null GameObject in RemovePhaseBarrier
+- music
+- sound
+- robot projectiles
+- level design
+- balance
+- control flow
