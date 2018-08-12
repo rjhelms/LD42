@@ -96,6 +96,7 @@ public class GameController : MonoBehaviour
     public AudioClip PlayerFire;
     public AudioClip PlayerShotsOut;
     public AudioSource FXSource;
+    public GameObject MusicPlayer;
 
     [Header("Levels")]
     public GameObject[] Levels;
@@ -103,6 +104,11 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if (GameObject.FindGameObjectsWithTag("Music").Length == 0)
+        {
+            GameObject music = Instantiate(MusicPlayer);
+            DontDestroyOnLoad(music);
+        }
         InitializeCamera();
         if (InstantiateLevel)
             Instantiate(Levels[ScoreManager.Instance.Level-1], new Vector3(0, 0, 0), Quaternion.identity);

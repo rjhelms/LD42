@@ -342,6 +342,12 @@ Prefab:
       propertyPath: CoverImage
       value: 
       objectReference: {fileID: 1515544884}
+    - target: {fileID: 114160847012873422, guid: f6ba3fc0276463847b40407897c899af,
+        type: 2}
+      propertyPath: MusicPlayer
+      value: 
+      objectReference: {fileID: 1637500889923568, guid: dc0f9f9b801952d4bb8c200ef3e5ba8c,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6ba3fc0276463847b40407897c899af, type: 2}
   m_IsPrefabAsset: 0
