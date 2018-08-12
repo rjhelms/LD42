@@ -37,7 +37,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4098389287282088}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4803171440371066}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 50958376958155168}
   - component: {fileID: 70316871924204874}
   - component: {fileID: 114574798961829590}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: RobotRight
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 50501748053016246}
   - component: {fileID: 70631399539761888}
   - component: {fileID: 114162461516821272}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: RobotLeft
   m_TagString: Enemy
   m_Icon: {fileID: 0}

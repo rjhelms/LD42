@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50881093562469910}
   - component: {fileID: 70636629676956506}
   - component: {fileID: 114973515848977574}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: RobotUp
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4104474321678516}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,6 +131,8 @@ MonoBehaviour:
     type: 2}
   ProjectileSpawnPoint: {fileID: 4104474321678516}
   DeadRobot: {fileID: 1205239957429462, guid: 80e82d2186a31f7478ffa5d3d3e0f22f, type: 2}
+  SpawnProjectileTime: 0.75
+  SpawnProjectileChance: 0.75
 --- !u!212 &212170229706619466
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveVector: {x: 0, y: 0}
   MoveSpeed: 2
-  TimeToLive: 2
+  TimeToLive: 1.5
 --- !u!212 &212856248058207238
 SpriteRenderer:
   m_ObjectHideFlags: 1

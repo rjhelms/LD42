@@ -270,6 +270,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114160847012873422, guid: f6ba3fc0276463847b40407897c899af,
+        type: 2}
+      propertyPath: Levels.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4544778258894856, guid: f6ba3fc0276463847b40407897c899af, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -348,9 +353,25 @@ Prefab:
       value: 
       objectReference: {fileID: 1637500889923568, guid: dc0f9f9b801952d4bb8c200ef3e5ba8c,
         type: 2}
+    - target: {fileID: 114160847012873422, guid: f6ba3fc0276463847b40407897c899af,
+        type: 2}
+      propertyPath: Levels.Array.data[2]
+      value: 
+      objectReference: {fileID: 1480214257180128, guid: 7c34b9acee6b5d64fbd9dd256afec718,
+        type: 2}
+    - target: {fileID: 114160847012873422, guid: f6ba3fc0276463847b40407897c899af,
+        type: 2}
+      propertyPath: InstantiateLevel
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6ba3fc0276463847b40407897c899af, type: 2}
   m_IsPrefabAsset: 0
+--- !u!4 &336933184 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4544778258894856, guid: f6ba3fc0276463847b40407897c899af,
+    type: 2}
+  m_PrefabInternal: {fileID: 336933180}
 --- !u!1 &487203253
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +631,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114580776421540394, guid: 0a2acd48c9fb08c4c998a14229dbfa87,
+        type: 2}
+      propertyPath: ProjectileSpawnPoints.Array.data[4]
+      value: 
+      objectReference: {fileID: 336933184}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a2acd48c9fb08c4c998a14229dbfa87, type: 2}
   m_IsPrefabAsset: 0
@@ -630,7 +656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1021665477
 RectTransform:
   m_ObjectHideFlags: 0

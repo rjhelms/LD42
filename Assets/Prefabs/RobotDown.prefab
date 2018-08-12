@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4953914904815874}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ProjectileSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 50637643993070092}
   - component: {fileID: 70225227420546982}
   - component: {fileID: 114912268592138220}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: RobotDown
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -131,6 +131,8 @@ MonoBehaviour:
     type: 2}
   ProjectileSpawnPoint: {fileID: 4953914904815874}
   DeadRobot: {fileID: 1205239957429462, guid: 80e82d2186a31f7478ffa5d3d3e0f22f, type: 2}
+  SpawnProjectileTime: 0.75
+  SpawnProjectileChance: 0.75
 --- !u!212 &212252746060794192
 SpriteRenderer:
   m_ObjectHideFlags: 1
