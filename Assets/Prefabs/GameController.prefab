@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InstantiateLevel: 1
+  GameState: 0
   GridX: 20
   GridY: 25
   WorldCamera: {fileID: 0}
@@ -71,6 +72,7 @@ MonoBehaviour:
   PhaseBarrierDeactivateTime: 1.5
   RandomSpawnChance: 0.75
   BarrierDamageAmount: 1
+  RobotDamageAmount: 1
   BarrierDamageTime: 0.5
   CurrentCannonPower: 0
   CannonShotEnergy: 3
@@ -82,10 +84,18 @@ MonoBehaviour:
   LevelClearScore: 1000
   HealthBar: {fileID: 0}
   PowerBar: {fileID: 0}
+  LivesImage: {fileID: 0}
   HealthBarWidth: 24
   PowerBarWidth: 24
+  LivesImageTile: 10
   ScoreText: {fileID: 0}
   LevelText: {fileID: 0}
+  RemainingText: {fileID: 0}
+  CoverImage: {fileID: 0}
+  StartTime: 1
+  PauseFadeTime: 0.2
+  WinTime: 1
+  LoseTime: 1
   Levels:
   - {fileID: 1827710056861416, guid: 0d223cf71b78706429e864c860fadf89, type: 2}
   - {fileID: 1908123594745250, guid: 21158bac7d1b6b94a9b7e4f84fe21c68, type: 2}

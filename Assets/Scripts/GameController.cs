@@ -73,6 +73,7 @@ public class GameController : MonoBehaviour
     public int LivesImageTile = 10;
     public Text ScoreText;
     public Text LevelText;
+    public Text RemainingText;
     public Image CoverImage;
 
     [Header("Game State Timing")]
@@ -178,6 +179,7 @@ public class GameController : MonoBehaviour
         int currentPowerBarWidth = Mathf.RoundToInt(CurrentCannonPower * PowerBarWidth / ScoreManager.Instance.MaxCannonPower);
         PowerBar.localScale = new Vector3(currentPowerBarWidth, 1, 1);
         ScoreText.text = string.Format("{0}", ScoreManager.Instance.Score);
+        RemainingText.text = string.Format("REMAINING: {0}", ActiveEmitterList.Count);
         LivesImage.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, LivesImageTile * ScoreManager.Instance.Lives);
     }
 
