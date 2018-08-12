@@ -136,8 +136,7 @@ public class GameController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
         {
-            ScoreManager.Instance.Level++;
-            SceneManager.LoadScene("main");
+            Win();
         }
         if (Time.time >= nextPhaseBarrierSpawnTime)
         {
@@ -324,7 +323,7 @@ public class GameController : MonoBehaviour
         if (ActiveEmitterList.Count == 0)
         {
             ScoreManager.Instance.Score += LevelClearScore;
-            Debug.Log("Level clear!");
+            Win();
         }
     }
 
@@ -377,6 +376,24 @@ public class GameController : MonoBehaviour
                 break;
         }
         GameState = newState;
+    }
+
+    public void Win()
+    {
+        SwitchState(GameState.WINNING);
+        ScoreManager.Instance.Level++;
+        CrossFadeAlphaWithCallBack(CoverImage, 1f, WinTime, delegate
+        {
+            if (ScoreManager.Instance.Level > Levels.Length)
+            {
+                Debug.Log("You win!");
+                // TODO: go to win screen
+            }
+            else
+            {
+                SceneManager.LoadScene("main");
+            }
+        });
     }
 
     void CrossFadeAlphaWithCallBack(Image img, float alpha, float duration, System.Action action)
