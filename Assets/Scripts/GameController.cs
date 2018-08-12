@@ -55,8 +55,10 @@ public class GameController : MonoBehaviour
     [Header("UI Elements")]
     public Transform HealthBar;
     public Transform PowerBar;
+    public RectTransform LivesImage;
     public int HealthBarWidth = 24;
     public int PowerBarWidth = 24;
+    public int LivesImageTile = 10;
     public Text ScoreText;
     public Text LevelText;
 
@@ -80,6 +82,7 @@ public class GameController : MonoBehaviour
         CurrentCannonPower = ScoreManager.Instance.MaxCannonPower;
         ScoreText.text = string.Format("{0}", ScoreManager.Instance.Score);
         LevelText.text = string.Format("LEVEL {0}", ScoreManager.Instance.Level);
+
     }
 
     // Update is called once per frame
@@ -130,6 +133,7 @@ public class GameController : MonoBehaviour
         int currentPowerBarWidth = Mathf.RoundToInt(CurrentCannonPower * PowerBarWidth / ScoreManager.Instance.MaxCannonPower);
         PowerBar.localScale = new Vector3(currentPowerBarWidth, 1, 1);
         ScoreText.text = string.Format("{0}", ScoreManager.Instance.Score);
+        LivesImage.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, LivesImageTile * ScoreManager.Instance.Lives);
     }
 
     private void InitializeCamera()
