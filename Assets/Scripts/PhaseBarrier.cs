@@ -16,9 +16,12 @@ public class PhaseBarrier : MonoBehaviour {
     public float OutTime;
     public float FlashTime;
     public GameObject ParentEmitter;
-
+    public Sprite[] PhaseBarrierSprites;
+    public float SpriteChangeTime = 0.3f;
+    public float SpriteChangeChance = 0.2f;
     private float nextStateChangeTime;
     private float nextFlashTime;
+    private float nextSpriteChangeTime;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rigidbody2D;
     private GameController controller;
@@ -34,6 +37,9 @@ public class PhaseBarrier : MonoBehaviour {
 
         controller = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y);
+        RandomSprite();
+        nextSpriteChangeTime = Time.time + SpriteChangeTime;
+
     }
 
     // Update is called once per frame
@@ -45,6 +51,14 @@ public class PhaseBarrier : MonoBehaviour {
         }
         if (controller.GameState == GameState.RUNNING)
         {
+            if (Time.time > nextSpriteChangeTime)
+            {
+                nextSpriteChangeTime = Time.time + SpriteChangeTime;
+                if (Random.value < SpriteChangeChance)
+                {
+                    RandomSprite();
+                }
+            }
             switch (State)
             {
                 case PhaseBarrierState.IN:
@@ -75,5 +89,10 @@ public class PhaseBarrier : MonoBehaviour {
         nextStateChangeTime = Time.time + OutTime;
         spriteRenderer.enabled = false;
         rigidbody2D.simulated = false;
+    }
+
+    private void RandomSprite()
+    {
+        spriteRenderer.sprite = PhaseBarrierSprites[Random.Range(0, PhaseBarrierSprites.Length)];
     }
 }
