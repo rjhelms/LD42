@@ -99,6 +99,7 @@ MonoBehaviour:
   ScoreValue: 200
   MoveSpeed: 1
   Projectile: {fileID: 0}
+  DeadRobot: {fileID: 1205239957429462, guid: 80e82d2186a31f7478ffa5d3d3e0f22f, type: 2}
 --- !u!212 &212252746060794192
 SpriteRenderer:
   m_ObjectHideFlags: 1

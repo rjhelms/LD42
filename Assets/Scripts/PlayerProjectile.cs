@@ -39,5 +39,10 @@ public class PlayerProjectile : MonoBehaviour {
             ScoreManager.Instance.Score += controller.DestroyBarrierScore;
             Destroy(gameObject);
         }
+        else if (collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<Robot>().Die();
+            Destroy(gameObject);
+        }
     }
 }

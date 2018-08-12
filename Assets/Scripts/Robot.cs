@@ -11,6 +11,7 @@ public class Robot : MonoBehaviour {
     public int ScoreValue = 200;
     public int MoveSpeed = 1;
     public GameObject Projectile;
+    public GameObject DeadRobot;
 
     private Rigidbody2D rigidbody2D;
     private SpriteRenderer spriteRenderer;
@@ -92,5 +93,12 @@ public class Robot : MonoBehaviour {
                     break;
             }
         }
+    }
+
+    public void Die()
+    {
+        ScoreManager.Instance.Score += ScoreValue;
+        Instantiate(DeadRobot, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }
