@@ -118,6 +118,7 @@ public class GameController : MonoBehaviour
                 });
                 break;
             case GameState.RUNNING:
+                CameraFollow();
                 if (Input.GetButtonDown("Pause"))
                 {
                     SwitchState(GameState.PAUSED);
@@ -139,6 +140,10 @@ public class GameController : MonoBehaviour
         {
             Win();
         }
+        if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            Lose();
+        }
         if (Time.time >= nextPhaseBarrierSpawnTime)
         {
             nextPhaseBarrierSpawnTime = Time.time + PhaseBarrierSpawnTime;
@@ -156,7 +161,8 @@ public class GameController : MonoBehaviour
                 CannonCooldown = false;
                 nextCannonRechargeTime = Time.time + CannonRechargeTime;
             }
-        } else
+        }
+        else
         {
             if (Time.time > nextCannonRechargeTime)
             {
@@ -167,13 +173,11 @@ public class GameController : MonoBehaviour
                 nextCannonRechargeTime = Time.time + CannonRechargeTime;
             }
         }
-        Vector3 cameraTargetPosition = (player.transform.position + CameraPositionOffset
-                                        + ((Vector3)player.LastMoveVector * PlayerVectorMultiplier));
-        Vector3 newCameraPosition = Vector3.Lerp(WorldCamera.transform.position, cameraTargetPosition, CameraLerpSpeed);
-        WorldCamera.transform.position = new Vector3(Mathf.RoundToInt(newCameraPosition.x), Mathf.Round(newCameraPosition.y),
-                                                     Mathf.Round(newCameraPosition.y - 150));
-        gameGrid.position = new Vector3(gameGrid.position.x, gameGrid.position.y, player.transform.position.z);
+        UpdateUI();
+    }
 
+    private void UpdateUI()
+    {
         int currentHealthBarWidth = Mathf.RoundToInt(ScoreManager.Instance.HitPoints * HealthBarWidth / ScoreManager.Instance.MaxHitPoints);
         HealthBar.localScale = new Vector3(currentHealthBarWidth, 1, 1);
         int currentPowerBarWidth = Mathf.RoundToInt(CurrentCannonPower * PowerBarWidth / ScoreManager.Instance.MaxCannonPower);
@@ -181,6 +185,16 @@ public class GameController : MonoBehaviour
         ScoreText.text = string.Format("{0}", ScoreManager.Instance.Score);
         RemainingText.text = string.Format("REMAINING: {0}", ActiveEmitterList.Count);
         LivesImage.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, LivesImageTile * ScoreManager.Instance.Lives);
+    }
+
+    private void CameraFollow()
+    {
+        Vector3 cameraTargetPosition = (player.transform.position + CameraPositionOffset
+                                        + ((Vector3)player.LastMoveVector * PlayerVectorMultiplier));
+        Vector3 newCameraPosition = Vector3.Lerp(WorldCamera.transform.position, cameraTargetPosition, CameraLerpSpeed);
+        WorldCamera.transform.position = new Vector3(Mathf.RoundToInt(newCameraPosition.x), Mathf.Round(newCameraPosition.y),
+                                                     Mathf.Round(newCameraPosition.y - 150));
+        gameGrid.position = new Vector3(gameGrid.position.x, gameGrid.position.y, player.transform.position.z);
     }
 
     private void InitializeCamera()
@@ -333,16 +347,25 @@ public class GameController : MonoBehaviour
     {
         if (Time.time > nextBarrierDamageTime)
         {
-            ScoreManager.Instance.HitPoints -= BarrierDamageAmount;
+            TakeDamage(BarrierDamageAmount);
             nextBarrierDamageTime = Time.time + BarrierDamageTime;
         }
     }
 
     public void RobotHit()
     {
-        ScoreManager.Instance.HitPoints -= RobotDamageAmount;
+        TakeDamage(RobotDamageAmount);
     }
 
+    public void TakeDamage(int damageAmount)
+    {
+        ScoreManager.Instance.HitPoints -= damageAmount;
+        if (ScoreManager.Instance.HitPoints <= 0)
+        {
+            ScoreManager.Instance.HitPoints = 0;
+            Lose();
+        }
+    }
     public bool CanShoot()
     {
         if (CurrentCannonPower >= CannonShotEnergy)
@@ -398,6 +421,24 @@ public class GameController : MonoBehaviour
         });
     }
 
+    public void Lose()
+    {
+        SwitchState(GameState.LOSING);
+        ScoreManager.Instance.Lives--;
+        CrossFadeAlphaWithCallBack(CoverImage, 1f, LoseTime, delegate
+        {
+            if (ScoreManager.Instance.Lives >= 0)
+            {
+                // reload current level
+                SceneManager.LoadScene("main");
+            }
+            else
+            {
+                Debug.Log("You lose!");
+                // TODO: go to lose screen
+            }
+        });
+    }
     void CrossFadeAlphaWithCallBack(Image img, float alpha, float duration, System.Action action)
     {
         StartCoroutine(CrossFadeAlphaCOR(img, alpha, duration, action));
