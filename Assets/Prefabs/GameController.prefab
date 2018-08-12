@@ -165,16 +165,18 @@ MonoBehaviour:
   ActiveEmitterList: []
   InactiveEmitterList: []
   PhaseBarrierSpawnTime: 0.5
-  PhaseBarrierDeactivateTime: 1.5
-  RandomSpawnChance: 0.75
+  PhaseBarrierDeactivateTime: 0.5
+  RandomSpawnChance: 0.7
   BarrierDamageAmount: 1
   RobotDamageAmount: 1
   BarrierDamageTime: 0.5
   CurrentCannonPower: 0
   CannonShotEnergy: 3
-  CannonCooldownTime: 1
-  CannonRechargeTime: 0.25
+  CannonCooldownTime: 0.8
+  CannonRechargeTime: 0.2
   CannonCooldown: 0
+  RobotSpawnProjectileTime: 0.6
+  RobotSpawnProjectileChance: 0.8
   DeactivatEmitterScore: 200
   DestroyBarrierScore: 50
   LevelClearScore: 1000
@@ -203,6 +205,10 @@ MonoBehaviour:
   PlayerFire: {fileID: 8300000, guid: d0d4016eabcac974e871634a4c72a3a8, type: 3}
   PlayerShotsOut: {fileID: 8300000, guid: a80bbbd3fc6b0304c9314ba74021e320, type: 3}
   FXSource: {fileID: 82711462335558920}
+  MusicPlayer: {fileID: 1637500889923568, guid: dc0f9f9b801952d4bb8c200ef3e5ba8c,
+    type: 2}
   Levels:
   - {fileID: 1827710056861416, guid: 0d223cf71b78706429e864c860fadf89, type: 2}
   - {fileID: 1908123594745250, guid: 21158bac7d1b6b94a9b7e4f84fe21c68, type: 2}
+  - {fileID: 1480214257180128, guid: 7c34b9acee6b5d64fbd9dd256afec718, type: 2}
+  - {fileID: 1143292554329550, guid: 0f6aa6daa07879c488c113e85cee1385, type: 2}

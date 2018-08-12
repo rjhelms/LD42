@@ -55,6 +55,8 @@ public class GameController : MonoBehaviour
     public float CannonCooldownTime;
     public float CannonRechargeTime;
     public bool CannonCooldown;
+    public float RobotSpawnProjectileTime = 0.75f;
+    public float RobotSpawnProjectileChance = 0.75f;
 
     public int DeactivatEmitterScore = 200;
     public int DestroyBarrierScore = 50;

@@ -29,7 +29,7 @@ public class Robot : MonoBehaviour {
         rigidbody2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         controller = FindObjectOfType<GameController>();
-        nextSpawnProjectileTime = Time.time + SpawnProjectileTime;
+        nextSpawnProjectileTime = Time.time + controller.RobotSpawnProjectileTime;
 	}
 	
 	// Update is called once per frame
@@ -41,11 +41,11 @@ public class Robot : MonoBehaviour {
         {
             if (Time.time > nextSpawnProjectileTime)
             {
-                if (Random.value < SpawnProjectileChance)
+                if (Random.value < controller.RobotSpawnProjectileChance)
                 {
                     SpawnProjectiles();
                 }
-                nextSpawnProjectileTime = Time.time + SpawnProjectileTime;
+                nextSpawnProjectileTime = Time.time + controller.RobotSpawnProjectileTime;
             }
         }
 	}
