@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -42,6 +44,10 @@ public class GameController : MonoBehaviour
     public float CannonRechargeTime;
     public bool CannonCooldown;
 
+    public int DeactivatEmitterScore = 200;
+    public int DestroyBarrierScore = 50;
+    public int LevelClearScore = 1000;
+
     private float nextBarrierDamageTime;
     private float nextCannonCooldownTime;
     private float nextCannonRechargeTime;
@@ -51,11 +57,16 @@ public class GameController : MonoBehaviour
     public Transform PowerBar;
     public int HealthBarWidth = 24;
     public int PowerBarWidth = 24;
+    public Text ScoreText;
+    public Text LevelText;
 
+    [Header("Levels")]
+    public GameObject[] Levels;
     // Use this for initialization
     void Start()
     {
         InitializeCamera();
+        Instantiate(Levels[ScoreManager.Instance.Level-1], new Vector3(0, 0, 0), Quaternion.identity);
         nextPhaseBarrierSpawnTime = Time.time + PhaseBarrierSpawnTime;
         nextPhaseBarrierDeactivateTime = Time.time + PhaseBarrierDeactivateTime;
         nextBarrierDamageTime = Time.time + BarrierDamageTime;
@@ -66,11 +77,18 @@ public class GameController : MonoBehaviour
         WorldCamera.transform.position = new Vector3(Mathf.RoundToInt(cameraTargetPosition.x), Mathf.Round(cameraTargetPosition.y),
                                              Mathf.Round(cameraTargetPosition.y - 150));
         CurrentCannonPower = MaxCannonPower;
+        ScoreText.text = string.Format("{0}", ScoreManager.Instance.Score);
+        LevelText.text = string.Format("LEVEL {0}", ScoreManager.Instance.Level);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            ScoreManager.Instance.Level++;
+            SceneManager.LoadScene("main");
+        }
         if (Time.time >= nextPhaseBarrierSpawnTime)
         {
             nextPhaseBarrierSpawnTime = Time.time + PhaseBarrierSpawnTime;
@@ -110,6 +128,7 @@ public class GameController : MonoBehaviour
         HealthBar.localScale = new Vector3(currentHealthBarWidth, 1, 1);
         int currentPowerBarWidth = Mathf.RoundToInt(CurrentCannonPower * PowerBarWidth / MaxCannonPower);
         PowerBar.localScale = new Vector3(currentPowerBarWidth, 1, 1);
+        ScoreText.text = string.Format("{0}", ScoreManager.Instance.Score);
     }
 
     private void InitializeCamera()
@@ -250,6 +269,12 @@ public class GameController : MonoBehaviour
         if (!InactiveEmitterList.Contains(emitter))
             InactiveEmitterList.Add(emitter);
         Debug.Log(string.Format("{0} active emitters left", ActiveEmitterList.Count));
+        ScoreManager.Instance.Score += DeactivatEmitterScore;
+        if (ActiveEmitterList.Count == 0)
+        {
+            ScoreManager.Instance.Score += LevelClearScore;
+            Debug.Log("Level clear!");
+        }
     }
 
     public void CheckHit()
