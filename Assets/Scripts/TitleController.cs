@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class WinController : MonoBehaviour {
+public class TitleController : MonoBehaviour {
 
     public GameState GameState;
 
@@ -16,16 +16,20 @@ public class WinController : MonoBehaviour {
     private float pixelRatioAdjustment;
 
     [Header("UI Elements")]
-    public Text ScoreText;
     public Image CoverImage;
-
+    public string SceneToLoad;
+    public GameObject MusicPlayer;
     private bool hasStarted = false;
 
     // Use this for initialization
     void Start () {
         Time.timeScale = 1f;
         InitializeCamera();
-        ScoreText.text = string.Format("{0}", ScoreManager.Instance.Score);
+        if (GameObject.FindGameObjectsWithTag("Music").Length == 0)
+        {
+            GameObject music = Instantiate(MusicPlayer);
+            DontDestroyOnLoad(music);
+        }
     }
 	
 	// Update is called once per frame
@@ -52,8 +56,7 @@ public class WinController : MonoBehaviour {
                     GameState = GameState.WINNING;
                     CrossFadeAlphaWithCallBack(CoverImage, 1f, 1f, delegate
                     {
-                        ScoreManager.Instance.Reset();
-                        SceneManager.LoadScene(0);
+                        SceneManager.LoadScene(SceneToLoad);
                     });
                 }
                 break;

@@ -6,8 +6,8 @@ public class ScoreManager : Singleton<ScoreManager> {
 
     protected ScoreManager() { }
 
-    public int HitPoints = 24;
-    public int MaxHitPoints = 24;
+    public int HitPoints = 12;
+    public int MaxHitPoints = 12;
     public int MaxCannonPower = 24;
     public int Lives = 3;
     public int Level = 1;
