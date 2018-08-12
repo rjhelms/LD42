@@ -170,7 +170,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -233,6 +233,7 @@ MonoBehaviour:
   - {fileID: 4222894388618912}
   ProjectilePrefab: {fileID: 1502353074643656, guid: bf10d970715492b499de0c825348e8cc,
     type: 2}
+  CurrentBarrierCollisions: 0
   nextAnimFrame: 0
 --- !u!212 &212643808288341396
 SpriteRenderer:
