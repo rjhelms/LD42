@@ -238,6 +238,9 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Emitter")
         {
             collision.gameObject.GetComponent<Emitter>().Deactivate();
+        } else if (collision.gameObject.tag == "PowerUp")
+        {
+            collision.gameObject.GetComponent<PowerUp>().Consume();
         }
     }
 

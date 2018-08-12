@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PhaseBarrier
   - Emitter
+  - PowerUp
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Terrain
   - PhaseBarrier
   - Projectile
-  - 
+  - PowerUp
   - 
   - 
   - 
