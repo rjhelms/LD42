@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 3664157345805528608}
   m_Layer: 31
   m_Name: Layer1
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 2569400268232511088}
   m_Layer: 31
   m_Name: Tilemap Palette
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
